@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/OpeningScene.unity
     guid: e16e798b27397804f98ef0602da98abe
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/EnemyScene.unity
     guid: 3080bf34aedfb20409e4ad0050bcdaa0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -5,10 +5,13 @@ public class Fireball : MonoBehaviour
     public float speed = 6f;
 
     Vector2 direction = Vector2.zero;
+  
 
-    public void Init(Vector2 dir)
+
+public void Init(Vector2 dir)
     {
         direction = dir.normalized;
+        
     }
 
     void Update()

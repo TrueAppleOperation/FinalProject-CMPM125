@@ -7,11 +7,15 @@ public class EnemySpawnManager : MonoBehaviour
 {
 
     [SerializeField] public GameObject elementEnemy;
+    [SerializeField] public GameObject fireballPrefab;
+
     List<GameObject> activeEnemies;
     void Start()
     {
 
-        
+       activeEnemies = new List<GameObject>(); 
+
+
     }
 
     // Update is called once per frame
@@ -34,7 +38,11 @@ public class EnemySpawnManager : MonoBehaviour
         {
             case enemyTypes.FIRE:
                 spawnedEnemyScript.spawnAsFire();
+
+                FireEnemyBehavior fireBehavior = spawnedEnemy.AddComponent<FireEnemyBehavior>();
+                fireBehavior.fireballPrefab = fireballPrefab;
                 break;
+
             case enemyTypes.WATER:
                 spawnedEnemyScript.spawnAsWater();
                 break;
