@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LightningProjectile : MonoBehaviour
 {
-    public float damage = 10;
+    public int damage = 10;
     public float speed = 12f;
     private Rigidbody2D rb;
 

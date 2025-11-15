@@ -31,6 +31,7 @@ public class Sword : MonoBehaviour
                 // Handle Rain type
                 ThunderStrike(direction);
                 break;
+            /*
             case SwordType.Sun:
                 // Handle Sun type
                 SunRay(direction);
@@ -39,9 +40,10 @@ public class Sword : MonoBehaviour
                 // Handle Snow type
                 SnowFreeze(direction);
                 break;
+            */
         }
     }
-    [SerializeField] GameObject windTornadoPrefab;
+    
     void ShootTornado(Vector2 direction)
     {
         GameObject tornado = Instantiate(windTornadoPrefab, transform.position, Quaternion.identity);
@@ -50,10 +52,11 @@ public class Sword : MonoBehaviour
 
     void ThunderStrike(Vector2 direction)
     {
-        GameObject thunder = Instantiate(lightningPrefab, transform.position, Quaternion.identity);
-        lighting.GetComponent<LightningProjectile>().Setup(direction, 6f)
+        GameObject lighting = Instantiate(lightningPrefab, transform.position, Quaternion.identity);
+        lighting.GetComponent<LightningProjectile>().Setup(direction, 6f);
     }
 
+    /*
     void SunRay(Vector2 direction)
     {
         GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
@@ -64,4 +67,6 @@ public class Sword : MonoBehaviour
         GameObject snowFreeze = Instantiate(snowFreezePrefab, transform.position, Quaternion.identity);
         snowFreeze.GetComponent<SnowFreeze>().Setup(direction, 4f);
     }
+
+    */
 }

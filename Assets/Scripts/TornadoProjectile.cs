@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class TornadoProjectile : MonoBehaviour
 {
@@ -30,11 +31,12 @@ public class TornadoProjectile : MonoBehaviour
                 Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
                 if (enemyRb != null)
                 {
-                    enemyRb.velocity = new Vector2(enemyRb.velocity.x, 5f);
+                    enemy.KnockUp(10f, 2f);
+                    
                 }
 
             }
             Destroy(gameObject);
         }
-    }
+    } 
 }
