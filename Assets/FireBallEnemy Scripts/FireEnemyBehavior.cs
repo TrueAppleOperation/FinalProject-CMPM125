@@ -14,7 +14,6 @@ public class FireEnemyBehavior : MonoBehaviour
 
     void Awake()
     {
-        
         EnemyScript enemyScript = GetComponent<EnemyScript>();
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -22,6 +21,7 @@ public class FireEnemyBehavior : MonoBehaviour
         {
             player = playerObject.transform;
         }
+      
 
         fireTimer = fireCooldown; //delay before shooting
     }
@@ -60,6 +60,7 @@ public class FireEnemyBehavior : MonoBehaviour
         Fireball fireballScript = fireball.GetComponent<Fireball>();
         if (fireballScript != null)
         {
+            fireballScript.speed = fireballSpeed;
             fireballScript.Init(direction);
         }
     }

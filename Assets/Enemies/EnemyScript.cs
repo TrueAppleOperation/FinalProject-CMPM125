@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
     }
 
 
-    bool takeDamage(float DMG) 
+    public bool takeDamage(float DMG) 
     { 
         if (DMG >= HP)
         {
