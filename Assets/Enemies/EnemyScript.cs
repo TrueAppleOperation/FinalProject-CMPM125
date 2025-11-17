@@ -1,13 +1,17 @@
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections;
 public class EnemyScript : MonoBehaviour
 {
-    
+
     //include behvaior
     float HP;
     float SPEED;
     float maxHP;
+    private Rigidbody2D rb;
+    private float originalY;
+
     [SerializeReference] public Sprite windSprite;
     [SerializeReference] public Sprite fireSprite;
     [SerializeReference] public Sprite lightningSprite;
@@ -15,27 +19,33 @@ public class EnemyScript : MonoBehaviour
 
     //Sprite selfSprite = GetComponent<SpriteRenderer>();  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
     enemyTypes TYPE;
-    
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        originalY = transform.position.y;
+    }
+
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         preventHPOverflow();
-        
+
     }
 
 
-    public bool takeDamage(float DMG) 
-    { 
+    public bool takeDamage(float DMG)
+    {
         if (DMG >= HP)
         {
             Destroy(this);
             return false;
-        } else
+        }
+        else
         {
             HP -= DMG;
             return true;
@@ -51,6 +61,37 @@ public class EnemyScript : MonoBehaviour
 
         }
     }
+
+    public IEnumerator BringBackDown(Rigidbody2D rb, float delay)
+    {
+        Debug.Log("Bringing enemy back down");
+        yield return new WaitForSeconds(delay);
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.gravityScale = 0;
+            if (transform.position.y > (originalY))
+            {
+                Vector3 pos = transform.position;
+                pos.y = originalY;
+                transform.position = pos;
+            }
+            Debug.Log("Gravity reset to 0");
+        }
+
+    }
+    public void KnockUp(float force, float duration)
+    {
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.gravityScale = 1;
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            StartCoroutine(BringBackDown(rb, duration));
+        }
+    }
+
+
 
     //custom init functions since unity doesnt have built in functions for this
     public void spawnAsFire()
