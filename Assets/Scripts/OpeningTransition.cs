@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OpeningScene : MonoBehaviour
+public class OpeningTransition : MonoBehaviour
 {
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("EnemyScene");
         }
     }
 }
