@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 7968765}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.006, y: 0.087, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0.087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -333,6 +333,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChasePlayer
   moveSpeed: 3
   stopDistance: 1.5
+  detectionRange: 5
+  idleWanderRange: 2
+  wanderPointWaitTime: 2
 --- !u!1 &388349817
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1622171529
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -600,7 +603,7 @@ Transform:
   m_GameObject: {fileID: 1622171528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -620,7 +623,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
   moveAction: {fileID: 7372035212942007877, guid: 88d924b4c500b8f45a101aae3b0ef7b8, type: 3}
-  leftClick: {fileID: 672580159306248735, guid: 88d924b4c500b8f45a101aae3b0ef7b8, type: 3}
 --- !u!50 &1622171532
 Rigidbody2D:
   serializedVersion: 5
