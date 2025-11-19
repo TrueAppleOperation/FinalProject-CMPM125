@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 7968765}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.087, z: 0}
+  m_LocalPosition: {x: -5.64, y: 0.087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -334,8 +334,7 @@ MonoBehaviour:
   moveSpeed: 3
   stopDistance: 1.5
   detectionRange: 5
-  idleWanderRange: 2
-  wanderPointWaitTime: 2
+  walkDistance: 1
 --- !u!1 &388349817
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1622171529
 SpriteRenderer:
   m_ObjectHideFlags: 0
