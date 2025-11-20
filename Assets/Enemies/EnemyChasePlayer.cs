@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyChasePlayer : MonoBehaviour
 {
     public float moveSpeed = 3f;
+    public float defaultMoveSpeed;
     public float stopDistance = 1.5f; // how close it gets before stopping
 
     Rigidbody2D rb;
@@ -11,6 +12,7 @@ public class EnemyChasePlayer : MonoBehaviour
 
     void Awake()
     {
+        defaultMoveSpeed = moveSpeed;
         rb = GetComponent<Rigidbody2D>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -55,4 +57,8 @@ public class EnemyChasePlayer : MonoBehaviour
 
         transform.position = pos;
     }
+
+
+    public void setToMove() { moveSpeed = defaultMoveSpeed; }
+    public void freezeMovement() { moveSpeed = 0; }
 }
