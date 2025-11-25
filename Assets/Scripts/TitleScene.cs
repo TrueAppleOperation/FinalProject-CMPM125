@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleScene : MonoBehaviour
+public class OpeningScene : MonoBehaviour
 {
     void Update()
     {

@@ -21,7 +21,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        // Set up button listeners
         continueButton.onClick.AddListener(OnContinueClicked);
         newGameButton.onClick.AddListener(OnNewGameClicked);
         optionsButton.onClick.AddListener(OnOptionsClicked);

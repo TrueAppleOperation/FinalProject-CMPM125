@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;  
 
@@ -6,8 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    private Sword sword;
 
-   
+
     public InputActionReference moveAction;
 
     Rigidbody2D rb;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;          
         rb.freezeRotation = true;
+        sword = GetComponent<Sword>();
     }
 
     void OnEnable()
@@ -39,6 +42,16 @@ public class PlayerController : MonoBehaviour
 
         if (input.sqrMagnitude > 0.01f)
             LastMoveDir = input.normalized;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+            Debug.Log( (Vector2)transform.position.normalized + " - " + transform.position);
+            //Debug.Log(direction);
+            sword.SetSwordType(direction);
+            //Debug.Log("Clicked");
+        }
     }
 
     void FixedUpdate()
