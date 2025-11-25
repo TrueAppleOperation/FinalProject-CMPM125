@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }    
     }
-
+    // Testing
     public IEnumerator BringBackDown(Rigidbody2D rb, float delay)
     {
         Debug.Log("Bringing enemy back down");
