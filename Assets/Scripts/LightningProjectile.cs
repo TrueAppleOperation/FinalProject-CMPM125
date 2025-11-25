@@ -4,7 +4,7 @@ public class LightningProjectile : MonoBehaviour
 {
     public int damage = 10;
     public float speed = 12f;
-    public float duration = 
+    public float duration = 2f;
     private Rigidbody2D rb;
 
     public void Setup(Vector2 direction, float force)
@@ -18,12 +18,13 @@ public class LightningProjectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            EnemyScript enemy = other.GetComponent<EnemyScript>();
+            LighteningEffectEnemy enemyThunderScript = other.GetComponent<LighteningEffectEnemy>();
             if (enemy != null)
             {
                 //Need to add TakeDamage method in Enemy class
-                enemy.TakeDamage(damage);
-                enemy.Stun(2f); // Stun enemy for 2 seconds
+                enemy.takeDamage(damage);
+                enemyThunderScript.Stun(2f); // Stun enemy for 2 seconds
             }
             Destroy(gameObject);
         }

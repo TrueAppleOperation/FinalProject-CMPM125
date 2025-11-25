@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 public class LighteningEffectEnemy : MonoBehaviour
 {
-    Public float speed = 5f;
+    public float speed = 5f;
     private bool isStunned = false;
 
     void Update()

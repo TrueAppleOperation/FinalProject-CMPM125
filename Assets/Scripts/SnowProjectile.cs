@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class SnowProjectile : MonoBehaviour
 {
-    public int freezeDuration = 5f;
+    public int freezeDuration = 5;
     public float speed = 10f;
-    public float damage = 3f;
+    public int damage = 3;
 
     private Rigidbody2D rb;
 
@@ -19,11 +19,12 @@ public class SnowProjectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            EnemyScript enemy = other.GetComponent<EnemyScript>();
+            EnemyFreeze enemyFreezeScript = other.GetComponent<EnemyFreeze>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
-                enemy.Freeze(freezeDuration); 
+                enemy.takeDamage(damage);
+                enemyFreezeScript.Freeze(freezeDuration); 
             }
             Destroy(gameObject);
         }

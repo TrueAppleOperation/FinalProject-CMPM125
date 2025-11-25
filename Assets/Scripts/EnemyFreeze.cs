@@ -1,7 +1,12 @@
 using UnityEngine;
+using System.Collections;
+
 
 public class EnemyFreeze : MonoBehaviour
 {
+    bool isFrozen = false; 
+    public float speed = 10f;
+
     void Update()
     {
         if (!isFrozen)
@@ -26,3 +31,4 @@ public class EnemyFreeze : MonoBehaviour
         isFrozen = false;
     }
 }
+

@@ -31,7 +31,7 @@ public class Sword : MonoBehaviour
                 // Handle Rain type
                 ThunderStrike(direction);
                 break;
-            /*
+            
             case SwordType.Sun:
                 // Handle Sun type
                 SunRay(direction);
@@ -40,7 +40,7 @@ public class Sword : MonoBehaviour
                 // Handle Snow type
                 SnowFreeze(direction);
                 break;
-            */
+            
         }
     }
     
@@ -67,6 +67,6 @@ public class Sword : MonoBehaviour
     void SnowFreeze(Vector2 direction)
     {
         GameObject snowFreeze = Instantiate(snowFreezePrefab, transform.position, Quaternion.identity);
-        snowFreeze.GetComponent<SnowFreeze>().Setup(direction, 4f);
+        snowFreeze.GetComponent<SnowProjectile>().Setup(direction, 4f);
     }
 }

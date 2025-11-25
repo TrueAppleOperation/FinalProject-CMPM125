@@ -47,10 +47,18 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
-            Debug.Log( (Vector2)transform.position.normalized + " - " + transform.position);
-            //Debug.Log(direction);
-            sword.SetSwordType(direction);
-            //Debug.Log("Clicked");
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (sword.currentType != SwordType.Sun)
+                    sword.SetSwordType(direction);
+                Debug.Log("Clicked");
+            }
+            if (Input.GetMouseButton(0))
+            {
+                if (sword.currentType == SwordType.Sun)
+                    sword.SetSwordType(direction);
+                Debug.Log("Holding Click");
+            }
         }
     }
 

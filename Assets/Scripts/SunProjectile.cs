@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class SunProjectile : MonoBehaviour
 {
-    public Linerenderer ray;
+    public LineRenderer ray;
     public float masDistance = 12f;
-    public int damagePerSecond = 3f;
+    public float damagePerSecond = 3f;
 
     private Transform player;
-    private Vectorw direction;
+    private Vector2 direction;
 
     public void Setup(Vector2 dir, float speed)
     {
@@ -38,10 +38,10 @@ public class SunProjectile : MonoBehaviour
         
         if(hit.collider != null)
         {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            EnemyScript enemy = hit.collider.GetComponent<EnemyScript>();
             if(enemy != null)
             {
-                enemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                enemy.takeDamage((int)(damagePerSecond * Time.deltaTime));
             }
         }
     }
