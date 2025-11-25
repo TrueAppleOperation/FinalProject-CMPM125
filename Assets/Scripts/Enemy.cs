@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
         }    
     }
 
+    // Testing a merge.
     public IEnumerator BringBackDown(Rigidbody2D rb, float delay)
     {
         Debug.Log("Bringing enemy back down");
