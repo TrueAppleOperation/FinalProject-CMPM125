@@ -56,17 +56,17 @@ public class Sword : MonoBehaviour
         lighting.GetComponent<LightningProjectile>().Setup(direction, 6f);
     }
 
-    /*
+    
     void SunRay(Vector2 direction)
     {
         GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
-        sunRay.GetComponent<SunRay>().Setup(direction, 5f);
+        sunRay.GetComponent<SunProjectile>().Setup(direction, 5f);
     }
+
+
     void SnowFreeze(Vector2 direction)
     {
         GameObject snowFreeze = Instantiate(snowFreezePrefab, transform.position, Quaternion.identity);
         snowFreeze.GetComponent<SnowFreeze>().Setup(direction, 4f);
     }
-
-    */
 }

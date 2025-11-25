@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class LightningProjectile : MonoBehaviour
+public class SnowProjectile : MonoBehaviour
 {
-    public int damage = 10;
-    public float speed = 12f;
-    public float duration = 
+    public int freezeDuration = 5f;
+    public float speed = 10f;
+    public float damage = 3f;
+
     private Rigidbody2D rb;
 
     public void Setup(Vector2 direction, float force)
@@ -21,11 +22,11 @@ public class LightningProjectile : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                //Need to add TakeDamage method in Enemy class
                 enemy.TakeDamage(damage);
-                enemy.Stun(2f); // Stun enemy for 2 seconds
+                enemy.Freeze(freezeDuration); 
             }
             Destroy(gameObject);
         }
     }
+
 }
