@@ -30,17 +30,22 @@ public class doFollowupAttack : BTNode
     
     public override NodeState Evaluate(Dictionary<string, object> data)
     {
+        GameObject bossSelf = GameObject.FindWithTag("Boss");
+        BossAI bossAIScript = bossSelf.GetComponent<BossAI>();
+
         this.data = data;
         float random = Random.Range(1, 5);//rand 1-4
 
         if (random == 4)
         {
             state = NodeState.Success;
+            bossAIScript.callBossStateReset();
             return state;
         }
 
         Debug.Log("Failed follup attack opportunity");
         state = NodeState.Failure;
+        bossAIScript.callBossStateReset();
         return state;
     }
 
@@ -48,10 +53,6 @@ public class doFollowupAttack : BTNode
 
 public class isPlayerInRange : BTNode
 {
-    private float range;
-    private Vector2 playerPosition;
-    private Vector2 selfPosition;
-
     public override NodeState Evaluate(Dictionary<string, object> data)
     {
         this.data = data;

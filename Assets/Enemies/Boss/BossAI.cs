@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class BossAI : MonoBehaviour
@@ -8,18 +9,35 @@ public class BossAI : MonoBehaviour
     private GameObject PLAYER;
     private PlayerController playerScript;
     private BTNode rootNode;
+    const float NORMSPEED = 0.15f;
+    const float NOSPEED = 0;
+
+    private float MOVESPEED = NORMSPEED;
+
+
     private float timeSinceLastAction;
     private float timeSincePreviousPlayerDMG;
+    private BossScript bossMonoBehavior;
 
 
     const float slamDetectionRange = 2f;
     const float maxDMGTimer = 6f;
+
+    private bool notMidAttack = true;
+
+    [SerializeReference] public GameObject fireStomp;
+    [SerializeReference] public GameObject windCone;
+    [SerializeReference] public GameObject waterTorrentRush;
+    [SerializeReference] public GameObject lightningStrike;
+    [SerializeReference] public GameObject lightningStrikeWarning;
+
     void Start()
     {
         timeSincePreviousPlayerDMG = 0;
         timeSinceLastAction = 0;
         PLAYER = GameObject.FindWithTag("Player");
         playerScript = PLAYER.GetComponent<PlayerController>();
+        bossMonoBehavior = GetComponent<BossScript>();
         setupBT();
     }
 
@@ -32,16 +50,38 @@ public class BossAI : MonoBehaviour
         data.Add("timeSincePreviousPlayerDMG", timeSincePreviousPlayerDMG);
         data.Add("selfPosition", transform.position);
         data.Add("playerPosition", PLAYER.transform.position);
+        data.Add("bossMB", bossMonoBehavior);
         data.Add("maxDMGtimer", maxDMGTimer);
         data.Add("slamDetetionRange", slamDetectionRange);
 
+        data.Add("fireStomp", fireStomp);
+        data.Add("windCone", windCone);
+        data.Add("waterTorrentRush", waterTorrentRush);
+        data.Add("lightningStrike", lightningStrike);
+        data.Add("lightningStrikeWarning", lightningStrikeWarning);
 
+        moveTowardsPlayer(MOVESPEED);
 
-        if (rootNode != null && timeSinceLastAction > 2)
+        if (rootNode != null && timeSinceLastAction > 2.5 && notMidAttack)
         {
+            MOVESPEED = NOSPEED;
+            notMidAttack = false;
             rootNode.Evaluate(data);
-            timeSinceLastAction = 0;
             if (timeSincePreviousPlayerDMG >= 6) timeSincePreviousPlayerDMG = 0;
+        }
+    }
+
+    private void moveTowardsPlayer(float SPEED)
+    {
+        if (PLAYER == null) return;
+
+        Vector2 toPlayer = PLAYER.transform.position - transform.position;
+        float distance = toPlayer.magnitude;
+
+        if (distance > 1.25)
+        {
+            Vector2 dir = toPlayer.normalized;
+            transform.position = Vector2.MoveTowards(transform.position, PLAYER.transform.position, SPEED * Time.fixedDeltaTime);
         }
     }
 
@@ -104,6 +144,21 @@ public class BossAI : MonoBehaviour
         });
 
     }
+
+    IEnumerator resetAttackCoroutine()
+    {
+        yield return new WaitForSeconds(1.2f);
+        timeSinceLastAction = 0;
+        notMidAttack = true;
+        MOVESPEED = NORMSPEED;
+    }
+    public void callBossStateReset()
+    {
+        StartCoroutine(resetAttackCoroutine());
+    }
+
+
+
 }
 
 
