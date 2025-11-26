@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3628584381743576052}
   - component: {fileID: 5998548340506562609}
   - component: {fileID: 8342531771471817069}
-  - component: {fileID: 2744749745960564017}
   - component: {fileID: 4850729575095496287}
   m_Layer: 0
   m_Name: EnemyWater
@@ -184,21 +183,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2744749745960564017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892341318037674660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcb5ec75d3c84d64aa771fdb5925752a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyChasePlayer
-  moveSpeed: 3
-  defaultMoveSpeed: 0
-  stopDistance: 1.5
 --- !u!114 &4850729575095496287
 MonoBehaviour:
   m_ObjectHideFlags: 0
