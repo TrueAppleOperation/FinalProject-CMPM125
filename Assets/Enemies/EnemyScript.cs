@@ -1,10 +1,10 @@
 using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.UIElements;
 using System.Collections;
+using UnityEngine.UIElements;
+
 public class EnemyScript : MonoBehaviour
 {
-
     //include behvaior
     float HP;
     float SPEED;
@@ -19,15 +19,79 @@ public class EnemyScript : MonoBehaviour
 
     //Sprite selfSprite = GetComponent<SpriteRenderer>();  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
     enemyTypes TYPE;
+
+    // Behavior-specific variables
+    private Transform player;
+    private Vector2 startPosition;
+    private Vector2[] patrolPoints;
+    private int currentPatrolIndex = 0;
+    private bool movingForward = true;
+    private bool isChasing = false;
+    private Vector2 returnPosition;
+
+    // Behavior parameters
+    private float detectionRange = 2f;
+    private float chaseRange = 3f;
+    private float stopDistance = 1.5f;
+
+    // Lightning enemy specific variables
+    public GameObject lightningProjectilePrefab;
+    public float projectileForce = 10f;
+    public float attackCooldown = 2f;
+    public float attackRange = 5f;
+    private float lastAttackTime = 0f;
+
+    private SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         originalY = transform.position.y;
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+
+        rb.gravityScale = 0f;
+        rb.freezeRotation = true;
+        startPosition = rb.position;
+        returnPosition = startPosition;
     }
 
     void Start()
     {
+        // Auto-detect enemy type based on prefab name
+        AutoDetectEnemyType();
+    }
 
+    void AutoDetectEnemyType()
+    {
+        string enemyName = gameObject.name.ToLower();
+
+        if (enemyName.Contains("fire"))
+        {
+            spawnAsFire();
+        }
+        else if (enemyName.Contains("water"))
+        {
+            spawnAsWater();
+        }
+        else if (enemyName.Contains("lightning"))
+        {
+            spawnAsLightning();
+        }
+        else if (enemyName.Contains("wind"))
+        {
+            spawnAsWind();
+        }
+        else
+        {
+            Debug.LogWarning($"No enemy type detected in name '{gameObject.name}'. Defaulting to FIRE.");
+            spawnAsFire();
+        }
     }
 
     // Update is called once per frame
@@ -35,14 +99,242 @@ public class EnemyScript : MonoBehaviour
     {
         preventHPOverflow();
 
+        // Check for player detection
+        if (player != null)
+        {
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (!isChasing && distanceToPlayer <= detectionRange)
+            {
+                // Start chasing
+                isChasing = true;
+                returnPosition = transform.position;
+            }
+            else if (isChasing && distanceToPlayer > chaseRange)
+            {
+                // Stop chasing and return to patrol
+                isChasing = false;
+                currentPatrolIndex = FindNearestPatrolPoint();
+            }
+        }
+
+        if (TYPE == enemyTypes.LIGHTNING)
+        {
+            LightningAttackLogic();
+        }
+
+        ExecuteBehavior();
     }
 
+    void FixedUpdate()
+    {
+        ClampToCamera();
+    }
+
+    void ExecuteBehavior()
+    {
+        if (isChasing)
+        {
+            ChasePlayer();
+        }
+        else
+        {
+            switch (TYPE)
+            {
+                case enemyTypes.FIRE:
+                    FirePatrol();
+                    break;
+                case enemyTypes.WATER:
+                    WaterPatrol();
+                    break;
+                case enemyTypes.LIGHTNING:
+                    LightningPatrol();
+                    break;
+                case enemyTypes.WIND:
+                    WindPatrol();
+                    break;
+            }
+        }
+    }
+
+    void ChasePlayer()
+    {
+        if (player == null) return;
+
+        Vector2 toPlayer = player.position - transform.position;
+        float distance = toPlayer.magnitude;
+
+        if (distance > stopDistance)
+        {
+            Vector2 dir = toPlayer.normalized;
+            rb.MovePosition(rb.position + dir * SPEED * Time.fixedDeltaTime);
+        }
+    }
+
+    void FirePatrol()
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0)
+        {
+            patrolPoints = new Vector2[2] {
+                startPosition + Vector2.left * 2f,
+                startPosition + Vector2.right * 2f
+            };
+        }
+        PatrolBetweenPoints(1.0f);
+    }
+
+    void WaterPatrol()
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0)
+        {
+            patrolPoints = new Vector2[3] {
+                startPosition + new Vector2(-1.5f, 0.5f),
+                startPosition + new Vector2(1.5f, 0.5f),
+                startPosition + new Vector2(0f, -1f)
+            };
+        }
+        PatrolBetweenPoints(0.7f);
+    }
+
+    void LightningPatrol()
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0)
+        {
+            patrolPoints = new Vector2[2] {
+                startPosition + Vector2.left * 2.5f,
+                startPosition + Vector2.right * 2.5f
+            };
+        }
+        PatrolBetweenPoints(1.3f);
+    }
+
+    void WindPatrol()
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0)
+        {
+            patrolPoints = new Vector2[3] {
+                startPosition + new Vector2(-2f, 0f),
+                startPosition,
+                startPosition + new Vector2(2f, 0f)
+            };
+        }
+        PatrolBetweenPoints(1.5f);
+    }
+
+    void PatrolBetweenPoints(float speedMultiplier)
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0) return;
+
+        Vector2 currentTarget = patrolPoints[currentPatrolIndex];
+        Vector2 toTarget = currentTarget - rb.position;
+
+        if (toTarget.magnitude > 0.1f)
+        {
+            Vector2 dir = toTarget.normalized;
+            rb.MovePosition(rb.position + dir * SPEED * speedMultiplier * Time.fixedDeltaTime);
+        }
+        else
+        {
+            if (patrolPoints.Length == 2)
+            {
+                currentPatrolIndex = (currentPatrolIndex == 0) ? 1 : 0;
+            }
+            else
+            {
+                if (movingForward)
+                {
+                    currentPatrolIndex++;
+                    if (currentPatrolIndex >= patrolPoints.Length)
+                    {
+                        currentPatrolIndex = patrolPoints.Length - 2;
+                        movingForward = false;
+                    }
+                }
+                else
+                {
+                    currentPatrolIndex--;
+                    if (currentPatrolIndex < 0)
+                    {
+                        currentPatrolIndex = 1;
+                        movingForward = true;
+                    }
+                }
+            }
+        }
+    }
+
+    void LightningAttackLogic()
+    {
+        if (!isChasing) return;
+
+        if (player == null) return;
+        if (Time.time - lastAttackTime < attackCooldown) return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= attackRange)
+        {
+            ThrowLightningProjectile();
+            lastAttackTime = Time.time;
+        }
+    }
+
+    void ThrowLightningProjectile()
+    {
+        if (lightningProjectilePrefab == null) return;
+        if (player == null) return;
+
+        Vector2 direction = (player.position - transform.position).normalized;
+        GameObject projectile = Instantiate(lightningProjectilePrefab, transform.position, Quaternion.identity);
+
+        LightningProjectile projectileScript = projectile.GetComponent<LightningProjectile>();
+        if (projectileScript != null)
+        {
+            projectileScript.Setup(direction, projectileForce);
+        }
+    }
+
+    int FindNearestPatrolPoint()
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0) return 0;
+
+        int nearestIndex = 0;
+        float nearestDistance = Vector2.Distance(transform.position, patrolPoints[0]);
+
+        for (int i = 1; i < patrolPoints.Length; i++)
+        {
+            float distance = Vector2.Distance(transform.position, patrolPoints[i]);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestIndex = i;
+            }
+        }
+        return nearestIndex;
+    }
+
+    void ClampToCamera()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        Vector3 camPos = cam.transform.position;
+        Vector3 pos = transform.position;
+
+        pos.x = Mathf.Clamp(pos.x, camPos.x - halfWidth, camPos.x + halfWidth);
+        pos.y = Mathf.Clamp(pos.y, camPos.y - halfHeight, camPos.y + halfHeight);
+
+        transform.position = pos;
+    }
 
     public bool takeDamage(float DMG)
     {
         if (DMG >= HP)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return false;
         }
         else
@@ -52,13 +344,12 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    // Not set in stone
     void preventHPOverflow()
     {
         if (HP > maxHP)
         {
-            Debug.LogError("HP Oveflow - dected an overflow of allowed max HP on " + TYPE + ", setting to half of allowed max");
             HP = maxHP / 2;
-
         }
     }
 
@@ -78,8 +369,8 @@ public class EnemyScript : MonoBehaviour
             }
             Debug.Log("Gravity reset to 0");
         }
-
     }
+
     public void KnockUp(float force, float duration)
     {
         if (rb != null)
@@ -91,42 +382,49 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-
-
     //custom init functions since unity doesnt have built in functions for this
     public void spawnAsFire()
     {
         HP = 1f;
-        SPEED = 1f;
+        SPEED = 2f;
         maxHP = HP;
         TYPE = enemyTypes.FIRE;
+        detectionRange = 2.5f;
+        chaseRange = 4f;
         //selfSprite = fireSprite;  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
         //behavior = behavior yada yada
     }
     public void spawnAsWater()
     {
-        HP = 1f;
-        SPEED = 1f;
+        HP = 2f;
+        SPEED = 1.5f;
         maxHP = HP;
         TYPE = enemyTypes.WATER;
+        detectionRange = 2f;
+        chaseRange = 3.5f;
         //selfSprite = waterSprite;  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
         //behavior = behavior yada yada
     }
     public void spawnAsLightning()
     {
         HP = 1f;
-        SPEED = 1f;
+        SPEED = 2.5f;
         maxHP = HP;
         TYPE = enemyTypes.LIGHTNING;
+        detectionRange = 2f;
+        chaseRange = 4f;
+        attackRange = 5f;
         //selfSprite = lightningSprite;  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
         //behavior = behavior yada yada
     }
     public void spawnAsWind()
     {
-        HP = 1f;
-        SPEED = 1f;
+        HP = 0.5f;
+        SPEED = 3f;
         maxHP = HP;
         TYPE = enemyTypes.WIND;
+        detectionRange = 2.2f;
+        chaseRange = 4.5f;
         //selfSprite = windSprite;  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
         //behavior = behavior yada yada
     }

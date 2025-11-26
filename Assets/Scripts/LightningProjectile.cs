@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class LightningProjectile : MonoBehaviour
 {
-    public float damage = 10;
+    public int damage = 10;
     public float speed = 12f;
+    public float duration = 2f;
     private Rigidbody2D rb;
 
     public void Setup(Vector2 direction, float force)
@@ -18,10 +19,12 @@ public class LightningProjectile : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyScript enemy = other.GetComponent<EnemyScript>();
+            LighteningEffectEnemy enemyThunderScript = other.GetComponent<LighteningEffectEnemy>();
             if (enemy != null)
             {
                 //Need to add TakeDamage method in Enemy class
                 enemy.takeDamage(damage);
+                enemyThunderScript.Stun(2f); // Stun enemy for 2 seconds
             }
             Destroy(gameObject);
         }
