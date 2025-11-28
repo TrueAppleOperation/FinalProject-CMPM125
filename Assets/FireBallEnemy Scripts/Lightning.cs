@@ -6,6 +6,9 @@ public class Lightning : MonoBehaviour
     Vector3 positionToStrike;
     const float maxHeight = 8f;
     const float strikeSpeed = 35;
+    private bool isLanded = false;
+
+
 
     public void Init(Vector3 location)
     {
@@ -19,8 +22,20 @@ public class Lightning : MonoBehaviour
     {
         float delta = strikeSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, positionToStrike, delta);
+        if (transform.position == positionToStrike)
+        {
+            isLanded = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && isLanded)
+        {
+            Debug.Log("player got struck!");
+            PlayerController playerScript = other.GetComponent<PlayerController>();
+            playerScript.takeDamage(4f * Time.deltaTime);
+        }
     }
 }
 
-//TODO: add this script to fireballprefab as a component
-//TODO: add fireball prefab into EnemySpawnManager as a component

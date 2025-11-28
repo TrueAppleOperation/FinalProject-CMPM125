@@ -5,10 +5,10 @@ public class Fireball : MonoBehaviour
     public float speed = 6f;
 
     Vector2 direction = Vector2.zero;
-  
 
+    GameObject PLAYER;
 
-public void Init(Vector2 dir)
+    public void Init(Vector2 dir)
     {
         direction = dir.normalized;
         
@@ -18,7 +18,16 @@ public void Init(Vector2 dir)
     {
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("player failed their DEX save!");
+            PlayerController playerScript = PLAYER.GetComponent<PlayerController>();
+
+            playerScript.takeDamage(4f);
+        }
+    }
 }
 
-//TODO: add this script to fireballprefab as a component
-//TODO: add fireball prefab into EnemySpawnManager as a component

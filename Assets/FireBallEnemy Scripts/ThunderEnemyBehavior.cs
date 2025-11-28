@@ -7,10 +7,11 @@ public class ThunderEnemyBehavior : MonoBehaviour
     public GameObject lightningPrefab;
     public GameObject lightningWarning;
     EnemyChasePlayer movementScript;
-    public float lightningCooldown = 1f;
+    const float lightningCooldown = 1f;
     public float lightningDelay = 0.6f;
-    public float shootRange = 30f;
+    public float shootRange = 20f;
     private bool alreadyStriking = false;
+    private bool attackModeOn = false;
 
     float lightningTimer;
     Transform player;
@@ -38,7 +39,7 @@ public class ThunderEnemyBehavior : MonoBehaviour
             return;
         }
 
-        lightningTimer -= Time.deltaTime;
+        if (attackModeOn) lightningTimer -= Time.deltaTime;
 
         if (lightningTimer > 0f)
         {
@@ -47,7 +48,7 @@ public class ThunderEnemyBehavior : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= shootRange && alreadyStriking == false)
+        if (distanceToPlayer <= shootRange && alreadyStriking == false && attackModeOn)
         {
             warnLightning();
             alreadyStriking = true;
@@ -60,6 +61,20 @@ public class ThunderEnemyBehavior : MonoBehaviour
         movementScript.freezeMovement();
         GameObject lightningWarningArea = Instantiate(lightningWarning, lightningPosition, Quaternion.identity);
         Invoke("strikeLightning", lightningDelay);
+    }
+
+    public void activateAttackMode()
+    {
+        if (attackModeOn) return;
+        alreadyStriking = false;
+        attackModeOn = true;
+    }
+
+    public void disableAttackMode()
+    {
+        if (!attackModeOn) return;
+        attackModeOn = false;
+        lightningTimer = lightningCooldown;
     }
 
     void strikeLightning()

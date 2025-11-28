@@ -39,7 +39,6 @@ public class EnemyScript : MonoBehaviour
     public float projectileForce = 10f;
     public float attackCooldown = 2f;
     public float attackRange = 5f;
-    private float lastAttackTime = 0f;
 
     private SpriteRenderer spriteRenderer;
 
@@ -200,6 +199,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (patrolPoints == null || patrolPoints.Length == 0)
         {
+            chaseRange = 7f;
+            detectionRange = 6f;
             patrolPoints = new Vector2[2] {
                 startPosition + Vector2.left * 2.5f,
                 startPosition + Vector2.right * 2.5f
@@ -268,29 +269,16 @@ public class EnemyScript : MonoBehaviour
         if (!isChasing) return;
 
         if (player == null) return;
-        if (Time.time - lastAttackTime < attackCooldown) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
+        ThunderEnemyBehavior thunderScript = GetComponent<ThunderEnemyBehavior>();
         if (distanceToPlayer <= attackRange)
         {
-            ThrowLightningProjectile();
-            lastAttackTime = Time.time;
-        }
-    }
-
-    void ThrowLightningProjectile()
-    {
-        if (lightningProjectilePrefab == null) return;
-        if (player == null) return;
-
-        Vector2 direction = (player.position - transform.position).normalized;
-        GameObject projectile = Instantiate(lightningProjectilePrefab, transform.position, Quaternion.identity);
-
-        LightningProjectile projectileScript = projectile.GetComponent<LightningProjectile>();
-        if (projectileScript != null)
+            thunderScript = GetComponent<ThunderEnemyBehavior>();
+            thunderScript.activateAttackMode();
+        } else
         {
-            projectileScript.Setup(direction, projectileForce);
+            thunderScript.disableAttackMode();
         }
     }
 
