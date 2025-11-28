@@ -43,7 +43,7 @@ public class doFollowupAttack : BTNode
             return state;
         }
 
-        Debug.Log("Failed follup attack opportunity");
+        //Debug.Log("Failed follup attack opportunity");
         state = NodeState.Failure;
         bossAIScript.callBossStateReset();
         return state;

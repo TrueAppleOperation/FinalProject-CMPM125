@@ -157,6 +157,11 @@ public class BossAI : MonoBehaviour
         StartCoroutine(resetAttackCoroutine());
     }
 
+    public void resetPlayerDMGTimer()
+    {
+        timeSincePreviousPlayerDMG = 0;
+    }
+
 
 
 }

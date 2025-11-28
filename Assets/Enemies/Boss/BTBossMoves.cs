@@ -19,7 +19,7 @@ public class BossFireSlam : BTNode
         var fireSlam = Object.Instantiate(fireSlamObject, spawnPosition, Quaternion.identity);
         stompScript fireSlamSript = fireSlam.GetComponent<stompScript>();
         fireSlamSript.Init(spawnPosition);
-        Debug.Log("Doing fire slam!");
+        //Debug.Log("Doing fire slam!");
         return state;
     }
 
@@ -36,7 +36,7 @@ public class BossWaterRush : BTNode
         spawnPosition = (Vector3)data["selfPosition"];
         var waterRush = Object.Instantiate(waterWave, spawnPosition, Quaternion.identity);
         state = NodeState.Success;
-        Debug.Log("Charing Wave towards player!");
+        //Debug.Log("Charing Wave towards player!");
         return state;
     }
 
@@ -56,7 +56,7 @@ public class BossThunderStrike : BTNode
         spawnPosition = (Vector3)data["playerPosition"];
         mbReference = (BossScript)data["bossMB"];
         state = NodeState.Success;
-        Debug.Log("Summoning lightning at player!");
+        //Debug.Log("Summoning lightning at player!");
         
         mbReference.StartCoroutine(DoThunderStrikeAfter(0.6f));
         return state;
@@ -96,7 +96,7 @@ public class BossWindFollowup : BTNode
         mbReference.StartCoroutine(delayedFollowup(0.8f));
 
         state = NodeState.Success;
-        Debug.Log("Here comes a followup!");
+        //Debug.Log("Here comes a followup!");
         return state;
     }
 

@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7782258312220751531}
   - component: {fileID: -8069662569622174328}
   - component: {fileID: 7932504834217845759}
-  - component: {fileID: -6824652156613314926}
+  - component: {fileID: 8667381375106401007}
   m_Layer: 0
   m_Name: BossProto
   m_TagString: Untagged
@@ -189,7 +189,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.6062441, y: 1.4136057}
   m_EdgeRadius: 0
---- !u!114 &-6824652156613314926
+--- !u!114 &8667381375106401007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6223933317860125096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb5dd8e33135764c8581f521fba8234, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c780257f13f04749802bbde9d3373d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossScript
   bossTexture: {fileID: 0}

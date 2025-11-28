@@ -29,5 +29,18 @@ public class waveScript : MonoBehaviour
         bossSelf.transform.position = Vector2.MoveTowards(bossSelf.transform.position, playerPosition, SPEED * Time.fixedDeltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("playe took damage from wave!");
+            PlayerController playerScript = PLAYER.GetComponent<PlayerController>();
+            BossAI bossAIScript = bossSelf.GetComponent<BossAI>();
+
+            playerScript.takeDamage(5f);
+            bossAIScript.resetPlayerDMGTimer();
+        }
+    }
+
 }
 

@@ -7,7 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    private const float maxHP = 50;
+    private float HP = maxHP;
+    private const float hpRecoveryTimer = 10f;
     private Sword sword;
+
+    private float timeSinceLastDMG = 0;
 
 
     public InputActionReference moveAction;
@@ -62,9 +67,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void takeDamage(float dmg)
+    {
+        if (dmg >= HP)
+        {
+            //game over stuff
+        } else
+        {
+            timeSinceLastDMG = 0;
+            HP -= dmg;
+        }
+    }
+
     void FixedUpdate()
     {
+        if (HP != maxHP) timeSinceLastDMG += Time.fixedDeltaTime;
         rb.MovePosition(rb.position + input.normalized * moveSpeed * Time.fixedDeltaTime);
+
+        if (timeSinceLastDMG >= hpRecoveryTimer && HP != maxHP)
+        {
+            Debug.Log("recovering " + (3 * Time.fixedDeltaTime) + " hp...");
+            HP += 3 * Time.fixedDeltaTime;
+            if (HP > maxHP)
+            {
+                HP = maxHP;
+                Debug.Log("max HP recovered");
+            }
+        }
+
     }
 
   
