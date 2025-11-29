@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     public Button creditsButton;
 
     [Header("Scene Names")]
-    public string openingSceneName = "OpeningScene";
+    public string nextSceneName = "StartGame";
 
     private void Start()
     {
@@ -106,7 +106,7 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("Starting new game -> opening scene");
 
-        SceneManager.LoadScene(openingSceneName);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void QuitGame()
