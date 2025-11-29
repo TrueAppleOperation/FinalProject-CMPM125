@@ -52,6 +52,7 @@ public class Sword : MonoBehaviour
 
     void ThunderStrike(Vector2 direction)
     {
+        Debug.Log("Lighting Prefab: " + lightningPrefab);
         GameObject lighting = Instantiate(lightningPrefab, transform.position, Quaternion.identity);
         lighting.GetComponent<LightningProjectile>().Setup(direction, 6f);
     }

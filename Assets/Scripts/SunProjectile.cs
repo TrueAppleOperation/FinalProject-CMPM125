@@ -3,16 +3,14 @@ using UnityEngine;
 public class SunProjectile : MonoBehaviour
 {
     public LineRenderer ray;
-    public float masDistance = 12f;
+    public float masDistance = 1f;
     public float damagePerSecond = 3f;
 
     private Transform player;
-    private Vector2 direction;
-
-    public void Setup(Vector2 dir, float speed)
+    
+    public void Setup(Vector2 direction, float speed)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        direction = dir.normalized;
         ray.enabled = true;
     }
 
@@ -28,6 +26,9 @@ public class SunProjectile : MonoBehaviour
 
     void ShootBeam()
     {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+        Vector2 direction = (mousePos - player.position).normalized;
         Vector3 start = player.position;
         Vector3 end = start + (Vector3)(direction * masDistance);
         

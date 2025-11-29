@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d0f913ed44e644ab0756625c1664d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sword
-  currentType: 0
+  currentType: 1
   windTornadoPrefab: {fileID: 8114524405201407165, guid: c5b1a2e2805b7b54aa801793eb073990, type: 3}
   lightningPrefab: {fileID: 8114524405201407165, guid: 6921c791629071b49a1e3c9e45416a54, type: 3}
   sunRayPrefab: {fileID: 8114524405201407165, guid: b6ad6295cdc26c2489f8c6974c0a0fb4, type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4931381536875316277}
   - component: {fileID: 9155223336697288440}
   - component: {fileID: -5426047814053413309}
-  - component: {fileID: 2540958315630606271}
+  - component: {fileID: 7654112036555989718}
   m_Layer: 0
   m_Name: thunderPower
   m_TagString: Untagged
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1543202435
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.99866456, b: 0, a: 1}
@@ -166,7 +166,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2540958315630606271
+--- !u!114 &7654112036555989718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,8 +175,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8114524405201407165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f33862d167f8d47884e19cd08a93db, type: 3}
+  m_Script: {fileID: 11500000, guid: e07710e24eed54f4c9ec190389ddb8fe, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TornadoProjectile
-  speed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::LightningProjectile
   damage: 10
+  speed: 12
+  duration: 2
