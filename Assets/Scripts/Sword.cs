@@ -43,6 +43,11 @@ public class Sword : MonoBehaviour
             
         }
     }
+     public void DebugSpawnSun(Vector2 direction)
+    {
+        Debug.Log("DebugSpawnSun called");
+        SunRay(direction);
+    }
     
     void ShootTornado(Vector2 direction)
     {
@@ -58,11 +63,32 @@ public class Sword : MonoBehaviour
     }
 
     
-    void SunRay(Vector2 direction)
+    /*void SunRay(Vector2 direction)
     {
         GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
         sunRay.GetComponent<SunProjectile>().Setup(direction, 5f);
+    }*/
+    void SunRay(Vector2 direction)
+{
+    Debug.Log("SunRay() called, dir = " + direction);
+
+    GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
+    if (sunRay == null)
+    {
+        Debug.LogError("SunRay: sunRayPrefab is NULL!");
+        return;
     }
+
+    SunProjectile sp = sunRay.GetComponent<SunProjectile>();
+    if (sp == null)
+    {
+        Debug.LogError("SunRay: SunProjectile component missing on prefab");
+        return;
+    }
+
+    sp.Setup(direction, 5f);
+}
+
 
 
     void SnowFreeze(Vector2 direction)

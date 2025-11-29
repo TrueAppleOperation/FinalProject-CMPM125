@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 16d0f913ed44e644ab0756625c1664d5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - windTornadoPrefab: {instanceID: 0}
+  - lightningPrefab: {instanceID: 0}
+  - sunRayPrefab: {fileID: 8114524405201407165, guid: b6ad6295cdc26c2489f8c6974c0a0fb4, type: 3}
+  - snowFreezePrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
