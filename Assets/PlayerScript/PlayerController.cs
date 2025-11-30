@@ -1,19 +1,22 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;  
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
-    private const float maxHP = 50;
+    private const float maxHP = 30;
     private float HP = maxHP;
     private const float hpRecoveryTimer = 10f;
     private Sword sword;
 
     private float timeSinceLastDMG = 0;
 
+    public System.Action<float> OnHealthChanged;
+    public System.Action<float> OnMaxHealthChanged;
 
     public InputActionReference moveAction;
 
@@ -25,9 +28,15 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;          
+        rb.gravityScale = 0f;
         rb.freezeRotation = true;
         sword = GetComponent<Sword>();
+    }
+
+    void Start()
+    {
+        OnMaxHealthChanged?.Invoke(maxHP);
+        OnHealthChanged?.Invoke(HP);
     }
 
     void OnEnable()
@@ -42,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-      
+
         input = moveAction != null ? moveAction.action.ReadValue<Vector2>() : ReadKeyboard();
 
         if (input.sqrMagnitude > 0.01f)
@@ -69,15 +78,32 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(float dmg)
     {
+        Debug.Log($"Taking {dmg} damage. Current HP: {HP}");
+
         if (dmg >= HP)
         {
-            //game over stuff
-        } else
+            HP = 0;
+            OnHealthChanged?.Invoke(HP);
+            Debug.Log("Player died! Restarting scene...");
+            RestartScene();
+        }
+        else
         {
             timeSinceLastDMG = 0;
             HP -= dmg;
+            OnHealthChanged?.Invoke(HP);
+            Debug.Log($"New HP: {HP}");
         }
     }
+
+    private void RestartScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+    }
+
+    public float GetCurrentHP() => HP;
+    public float GetMaxHP() => maxHP;
 
     void FixedUpdate()
     {
@@ -86,18 +112,16 @@ public class PlayerController : MonoBehaviour
 
         if (timeSinceLastDMG >= hpRecoveryTimer && HP != maxHP)
         {
-            Debug.Log("recovering " + (3 * Time.fixedDeltaTime) + " hp...");
             HP += 3 * Time.fixedDeltaTime;
+            OnHealthChanged?.Invoke(HP);
             if (HP > maxHP)
             {
                 HP = maxHP;
-                Debug.Log("max HP recovered");
+                OnHealthChanged?.Invoke(HP);
             }
         }
-
     }
 
-  
     static Vector2 ReadKeyboard()
     {
         var k = Keyboard.current;

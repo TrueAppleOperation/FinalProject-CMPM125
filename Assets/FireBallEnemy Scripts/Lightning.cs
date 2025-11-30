@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Lightning : MonoBehaviour
 {
@@ -8,34 +7,58 @@ public class Lightning : MonoBehaviour
     const float strikeSpeed = 35;
     private bool isLanded = false;
 
-
-
     public void Init(Vector3 location)
     {
-
-        transform.position = new Vector3(positionToStrike[0], maxHeight, positionToStrike[2]);
-        positionToStrike = new Vector3(location[0], location[1] + 1.7f, location[2]);
-
+        positionToStrike = new Vector3(location.x, location.y + 1.7f, location.z);
+        transform.position = new Vector3(positionToStrike.x, maxHeight, positionToStrike.z);
     }
 
     void Update()
     {
-        float delta = strikeSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, positionToStrike, delta);
-        if (transform.position == positionToStrike)
+        if (!isLanded)
         {
-            isLanded = true;
+            float delta = strikeSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, positionToStrike, delta);
+            if (transform.position == positionToStrike)
+            {
+                isLanded = true;
+                ApplyLightningDamage();
+            }
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void ApplyLightningDamage()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
+
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                Debug.Log("Player struck by lightning!");
+                PlayerController playerScript = collider.GetComponent<PlayerController>();
+
+                if (playerScript != null)
+                {
+                    playerScript.takeDamage(10f);
+                    Debug.Log("Lightning damage applied!");
+                }
+            }
+        }
+        Destroy(gameObject, 0.5f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") && isLanded)
         {
-            Debug.Log("player got struck!");
+            Debug.Log("Player entered lightning trigger!");
             PlayerController playerScript = other.GetComponent<PlayerController>();
-            playerScript.takeDamage(4f * Time.deltaTime);
+
+            if (playerScript != null)
+            {
+                playerScript.takeDamage(10f);
+            }
         }
     }
 }
-
