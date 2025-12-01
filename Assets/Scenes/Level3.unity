@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4392470742088888968, guid: e518a531e829287408a9592a9d81343b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3800178
+      value: 3.77
       objectReference: {fileID: 0}
     - target: {fileID: 4392470742088888968, guid: e518a531e829287408a9592a9d81343b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -658,6 +658,7 @@ GameObject:
   - component: {fileID: 671567188}
   - component: {fileID: 671567187}
   - component: {fileID: 671567186}
+  - component: {fileID: 671567192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -742,7 +743,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
   moveAction: {fileID: 7372035212942007877, guid: 88d924b4c500b8f45a101aae3b0ef7b8, type: 3}
-  mainCamera: {fileID: 821629296}
 --- !u!50 &671567189
 Rigidbody2D:
   serializedVersion: 5
@@ -843,6 +843,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &671567192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671567185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef11618cfb545247ad21c0b0068a0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerSwitcher
+  sword: {fileID: 0}
 --- !u!1 &735629718
 GameObject:
   m_ObjectHideFlags: 0
@@ -6778,7 +6791,7 @@ Transform:
   m_GameObject: {fileID: 821629294}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.7999997, y: -0.87, z: -10}
+  m_LocalPosition: {x: -0.28, y: 1.32, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
