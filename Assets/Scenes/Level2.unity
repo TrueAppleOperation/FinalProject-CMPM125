@@ -2717,6 +2717,7 @@ GameObject:
   - component: {fileID: 166573718}
   - component: {fileID: 166573717}
   - component: {fileID: 166573716}
+  - component: {fileID: 166573722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2801,7 +2802,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
   moveAction: {fileID: 7372035212942007877, guid: 88d924b4c500b8f45a101aae3b0ef7b8, type: 3}
-  mainCamera: {fileID: 374734376}
 --- !u!50 &166573719
 Rigidbody2D:
   serializedVersion: 5
@@ -2902,6 +2902,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166573722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166573715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef11618cfb545247ad21c0b0068a0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerSwitcher
+  sword: {fileID: 0}
 --- !u!1 &199784489
 GameObject:
   m_ObjectHideFlags: 0
