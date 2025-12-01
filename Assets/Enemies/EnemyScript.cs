@@ -121,6 +121,10 @@ public class EnemyScript : MonoBehaviour
         {
             LightningAttackLogic();
         }
+        else if (TYPE == enemyTypes.WATER)
+        {
+            WaterAttackLogic();
+        }
 
         ExecuteBehavior();
     }
@@ -267,18 +271,40 @@ public class EnemyScript : MonoBehaviour
     void LightningAttackLogic()
     {
         if (!isChasing) return;
-
         if (player == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         ThunderEnemyBehavior thunderScript = GetComponent<ThunderEnemyBehavior>();
-        if (distanceToPlayer <= attackRange)
+        if (thunderScript != null)
         {
-            thunderScript = GetComponent<ThunderEnemyBehavior>();
-            thunderScript.activateAttackMode();
-        } else
+            if (distanceToPlayer <= attackRange)
+            {
+                thunderScript.activateAttackMode();
+            }
+            else
+            {
+                thunderScript.disableAttackMode();
+            }
+        }
+    }
+
+    void WaterAttackLogic()
+    {
+        if (player == null) return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        WaterEnemyBehavior waterScript = GetComponent<WaterEnemyBehavior>();
+
+        if (waterScript != null)
         {
-            thunderScript.disableAttackMode();
+            if (distanceToPlayer <= attackRange) // maybe add isChasing && 
+            {
+                waterScript.activateAttackMode();
+            }
+            else
+            {
+                waterScript.disableAttackMode();
+            }
         }
     }
 
@@ -390,6 +416,7 @@ public class EnemyScript : MonoBehaviour
         TYPE = enemyTypes.WATER;
         detectionRange = 2f;
         chaseRange = 3.5f;
+        attackRange = 5f; // Add this line
         //selfSprite = waterSprite;  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
         //behavior = behavior yada yada
     }

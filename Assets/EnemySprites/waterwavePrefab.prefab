@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: 3290384308728147570}
   - component: {fileID: 5118164421446740264}
   - component: {fileID: 7038845584183479479}
-  - component: {fileID: -2430391502953458374}
   - component: {fileID: -5163027946853943019}
   - component: {fileID: 2519649633826737288}
+  - component: {fileID: -1952621442271869617}
   m_Layer: 0
   m_Name: waterwavePrefab
   m_TagString: Untagged
@@ -212,19 +212,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-2430391502953458374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5755059992630758504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c3b43719b53449a58b8833dfbff6bef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Fireball
-  speed: 6
 --- !u!114 &-5163027946853943019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,3 +262,16 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0040964982, y: -0.015020192}
   m_Size: {x: 0.14224601, y: 0.61220586}
   m_Direction: 0
+--- !u!114 &-1952621442271869617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755059992630758504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5170b8be8370d564eb50b61cdccafe03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Water
+  speed: 20

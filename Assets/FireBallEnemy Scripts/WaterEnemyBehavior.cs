@@ -3,27 +3,24 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyScript))]
 public class WaterEnemyBehavior : MonoBehaviour
 {
-    [Header("Fire Settings")]
+    [Header("Water Settings")]
     public GameObject waterwavePrefab;
     public float waterCooldown = 0.8f;
-    public float waveSpeed = 0.15f;
-    public float shootRange = 16f;
+    public float waveSpeed = 0.10f;
+    private bool attackModeOn = false;
 
     float waveTimer;
     Transform player;
 
     void Awake()
     {
-        EnemyScript enemyScript = GetComponent<EnemyScript>();
-
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             player = playerObject.transform;
         }
 
-
-        waveTimer = waterCooldown; //delay before shooting
+        waveTimer = waterCooldown; // delay before shooting
     }
 
     void Update()
@@ -35,18 +32,23 @@ public class WaterEnemyBehavior : MonoBehaviour
 
         waveTimer -= Time.deltaTime;
 
-        if (waveTimer > 0f)
-        {
-            return;
-        }
-
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= shootRange)
+        if (waveTimer <= 0f && attackModeOn)
         {
             shootWave();
             waveTimer = waterCooldown;
         }
+    }
+
+    public void activateAttackMode()
+    {
+        if (attackModeOn) return;
+        attackModeOn = true;
+    }
+
+    public void disableAttackMode()
+    {
+        if (!attackModeOn) return;
+        attackModeOn = false;
     }
 
     void shootWave()
@@ -56,12 +58,11 @@ public class WaterEnemyBehavior : MonoBehaviour
         Vector2 direction = toTarget.normalized;
 
         GameObject waterwave = Instantiate(waterwavePrefab, spawnPosition, Quaternion.identity);
-        waterwave.transform.rotation = Quaternion.LookRotation(direction);
-        Quaternion preAdjustRotation = waterwave.transform.rotation;
 
-        waterwave.transform.rotation = Quaternion.Euler(0, 0, waterwave.transform.eulerAngles[0]);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        waterwave.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Fireball waterwaveScript = waterwave.GetComponent<Fireball>();
+        Water waterwaveScript = waterwave.GetComponent<Water>();
         if (waterwaveScript != null)
         {
             waterwaveScript.speed = waveSpeed;
