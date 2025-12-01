@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8457922281615555420}
   m_Layer: 0
   m_Name: EnemyLightning
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,10 @@ MonoBehaviour:
   fireSprite: {fileID: 0}
   lightningSprite: {fileID: 0}
   waterSprite: {fileID: 0}
+  lightningProjectilePrefab: {fileID: 0}
+  projectileForce: 10
+  attackCooldown: 2
+  attackRange: 5
 --- !u!50 &4943255282821934052
 Rigidbody2D:
   serializedVersion: 5
@@ -197,6 +201,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ThunderEnemyBehavior
   lightningPrefab: {fileID: 5755059992630758504, guid: 0432d33d753b9ba4eab440c93524435e, type: 3}
   lightningWarning: {fileID: 5755059992630758504, guid: 09048c06b655ca44eaf98bbfbcd3a91d, type: 3}
-  lightningCooldown: 0.8
   lightningDelay: 0.6
   shootRange: 30

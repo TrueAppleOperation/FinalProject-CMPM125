@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
     public int health = 100;
     private Rigidbody2D rb;
     private float originalY;
-    
 
     private void Awake()
     {

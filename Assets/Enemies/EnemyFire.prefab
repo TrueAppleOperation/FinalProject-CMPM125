@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6812108608671798186}
   m_Layer: 0
   m_Name: EnemyFire
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,10 @@ MonoBehaviour:
   fireSprite: {fileID: 0}
   lightningSprite: {fileID: 0}
   waterSprite: {fileID: 0}
+  lightningProjectilePrefab: {fileID: 0}
+  projectileForce: 10
+  attackCooldown: 2
+  attackRange: 5
 --- !u!114 &4942255355342392348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,4 +217,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChasePlayer
   moveSpeed: 3
+  defaultMoveSpeed: 0
   stopDistance: 1.5

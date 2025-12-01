@@ -2,6 +2,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement; 
 
 public class EnemyScript : MonoBehaviour
 {
@@ -42,6 +43,10 @@ public class EnemyScript : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    // Health bar events
+    public System.Action<float> OnHealthChanged;
+    public System.Action<float> OnMaxHealthChanged;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -62,8 +67,9 @@ public class EnemyScript : MonoBehaviour
 
     void Start()
     {
-        // Auto-detect enemy type based on prefab name
         AutoDetectEnemyType();
+        OnMaxHealthChanged?.Invoke(maxHP);
+        OnHealthChanged?.Invoke(HP);
     }
 
     void AutoDetectEnemyType()
@@ -344,17 +350,22 @@ public class EnemyScript : MonoBehaviour
         transform.position = pos;
     }
 
-    public bool takeDamage(float DMG)
+    public void takeDamage(float dmg)
     {
-        if (DMG >= HP)
+        Debug.Log($"Taking {dmg} damage. Current HP: {HP}");
+
+        if (dmg >= HP)
         {
+            HP = 0;
+            OnHealthChanged?.Invoke(HP);
+            Debug.Log("Enemy died! Destroying...");
             Destroy(gameObject);
-            return false;
         }
         else
         {
-            HP -= DMG;
-            return true;
+            HP -= dmg;
+            OnHealthChanged?.Invoke(HP);
+            Debug.Log($"New HP: {HP}");
         }
     }
 
@@ -399,7 +410,7 @@ public class EnemyScript : MonoBehaviour
     //custom init functions since unity doesnt have built in functions for this
     public void spawnAsFire()
     {
-        HP = 1f;
+        HP = 30f;
         SPEED = 2f;
         maxHP = HP;
         TYPE = enemyTypes.FIRE;
@@ -410,7 +421,7 @@ public class EnemyScript : MonoBehaviour
     }
     public void spawnAsWater()
     {
-        HP = 2f;
+        HP = 40f;
         SPEED = 1.5f;
         maxHP = HP;
         TYPE = enemyTypes.WATER;
@@ -422,7 +433,7 @@ public class EnemyScript : MonoBehaviour
     }
     public void spawnAsLightning()
     {
-        HP = 1f;
+        HP = 35f;
         SPEED = 2.5f;
         maxHP = HP;
         TYPE = enemyTypes.LIGHTNING;
@@ -443,4 +454,7 @@ public class EnemyScript : MonoBehaviour
         //selfSprite = windSprite;  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
         //behavior = behavior yada yada
     }
+
+    public float GetCurrentHP() => HP;
+    public float GetMaxHP() => maxHP;
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4850729575095496287}
   m_Layer: 0
   m_Name: EnemyWater
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,10 @@ MonoBehaviour:
   fireSprite: {fileID: 0}
   lightningSprite: {fileID: 0}
   waterSprite: {fileID: 0}
+  lightningProjectilePrefab: {fileID: 0}
+  projectileForce: 10
+  attackCooldown: 2
+  attackRange: 5
 --- !u!50 &5998548340506562609
 Rigidbody2D:
   serializedVersion: 5
@@ -198,4 +202,3 @@ MonoBehaviour:
   waterwavePrefab: {fileID: 5755059992630758504, guid: 0d84a510366e41943b163ae272ad7363, type: 3}
   waterCooldown: 1.5
   waveSpeed: 0.15
-  shootRange: 16
