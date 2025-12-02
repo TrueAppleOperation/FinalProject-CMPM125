@@ -2341,6 +2341,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7820662291593721779, guid: 6238c4b2d6448564997cc8f2a224eaec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1136279898}
+    - targetCorrespondingSourceObject: {fileID: 7820662291593721779, guid: 6238c4b2d6448564997cc8f2a224eaec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1136279902}
+    - targetCorrespondingSourceObject: {fileID: 7820662291593721779, guid: 6238c4b2d6448564997cc8f2a224eaec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1136279901}
+    - targetCorrespondingSourceObject: {fileID: 7820662291593721779, guid: 6238c4b2d6448564997cc8f2a224eaec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1136279900}
+    - targetCorrespondingSourceObject: {fileID: 7820662291593721779, guid: 6238c4b2d6448564997cc8f2a224eaec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1136279899}
   m_SourcePrefab: {fileID: 100100000, guid: 6238c4b2d6448564997cc8f2a224eaec, type: 3}
 --- !u!1 &85211847
 GameObject:
@@ -9026,6 +9038,66 @@ MonoBehaviour:
   moveSpeed: 3
   defaultMoveSpeed: 0
   stopDistance: 1.5
+--- !u!114 &1136279899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136279891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f33862d167f8d47884e19cd08a93db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TornadoProjectile
+  speed: 5
+  damage: 10
+--- !u!114 &1136279900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136279891}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7eb7972857d67640995ba5bb187c2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SunProjectile
+  ray: {fileID: 5449472881565341652, guid: b6ad6295cdc26c2489f8c6974c0a0fb4, type: 3}
+  masDistance: 12
+  damagePerSecond: 3
+  lifeTime: 0.5
+--- !u!114 &1136279901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136279891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd58f038b4b6487499905a58974a9550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnowProjectile
+  freezeDuration: 5
+  speed: 10
+  damage: 3
+--- !u!114 &1136279902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136279891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07710e24eed54f4c9ec190389ddb8fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightningProjectile
+  damage: 10
+  speed: 12
+  duration: 2
 --- !u!1 &1160025545
 GameObject:
   m_ObjectHideFlags: 0

@@ -137,11 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5560628320500267067, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.93
+      value: 11.47
       objectReference: {fileID: 0}
     - target: {fileID: 5560628320500267067, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4
+      value: 4.53
       objectReference: {fileID: 0}
     - target: {fileID: 5560628320500267067, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
       propertyPath: m_LocalPosition.z
@@ -175,16 +175,96 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6812108608671798186, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8937156536579935303, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
       propertyPath: m_Name
       value: EnemyFire
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6812108608671798186, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8937156536579935303, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 50889428}
+    - targetCorrespondingSourceObject: {fileID: 8937156536579935303, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 50889427}
+    - targetCorrespondingSourceObject: {fileID: 8937156536579935303, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 50889426}
+    - targetCorrespondingSourceObject: {fileID: 8937156536579935303, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 50889425}
   m_SourcePrefab: {fileID: 100100000, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+--- !u!1 &50889418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8937156536579935303, guid: 5977de756ba812641b1ea2d8b9960f98, type: 3}
+  m_PrefabInstance: {fileID: 19649807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &50889425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50889418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07710e24eed54f4c9ec190389ddb8fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightningProjectile
+  damage: 10
+  speed: 12
+  duration: 2
+--- !u!114 &50889426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50889418}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7eb7972857d67640995ba5bb187c2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SunProjectile
+  ray: {fileID: 5449472881565341652, guid: b6ad6295cdc26c2489f8c6974c0a0fb4, type: 3}
+  masDistance: 12
+  damagePerSecond: 3
+  lifeTime: 0.5
+--- !u!114 &50889427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50889418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f33862d167f8d47884e19cd08a93db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TornadoProjectile
+  speed: 5
+  damage: 10
+--- !u!114 &50889428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50889418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd58f038b4b6487499905a58974a9550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnowProjectile
+  freezeDuration: 5
+  speed: 10
+  damage: 3
 --- !u!1 &117706475
 GameObject:
   m_ObjectHideFlags: 0

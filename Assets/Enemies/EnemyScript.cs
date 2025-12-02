@@ -359,13 +359,33 @@ public class EnemyScript : MonoBehaviour
             HP = 0;
             OnHealthChanged?.Invoke(HP);
             Debug.Log("Enemy died! Destroying...");
-            Destroy(gameObject);
+            gameObject.SetActive(false); 
+            Destroy(gameObject, 1f);
+            StartCoroutine(LoadNextSceneWithDelay(2f));
         }
         else
         {
             HP -= dmg;
             OnHealthChanged?.Invoke(HP);
             Debug.Log($"New HP: {HP}");
+        }
+    }
+
+    IEnumerator LoadNextSceneWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.Log("Return to main menu");
+           // SceneManager.LoadScene(0); not sure about this yet
         }
     }
 
