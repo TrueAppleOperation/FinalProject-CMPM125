@@ -25,6 +25,8 @@ public class BossAI : MonoBehaviour
 
     private bool notMidAttack = true;
 
+    private bool aiRunning = true;
+
     [SerializeReference] public GameObject fireStomp;
     [SerializeReference] public GameObject windCone;
     [SerializeReference] public GameObject waterTorrentRush;
@@ -60,14 +62,23 @@ public class BossAI : MonoBehaviour
         data.Add("lightningStrike", lightningStrike);
         data.Add("lightningStrikeWarning", lightningStrikeWarning);
 
-        moveTowardsPlayer(MOVESPEED);
-
-        if (rootNode != null && timeSinceLastAction > 2.5 && notMidAttack)
+        //Debug.Log(aiRunning);
+        if (aiRunning)
         {
-            MOVESPEED = NOSPEED;
-            notMidAttack = false;
-            rootNode.Evaluate(data);
-            if (timeSincePreviousPlayerDMG >= 6) timeSincePreviousPlayerDMG = 0;
+
+            moveTowardsPlayer(MOVESPEED);
+
+            if (rootNode != null && timeSinceLastAction > 2.5 && notMidAttack)
+            {
+                MOVESPEED = NOSPEED;
+                notMidAttack = false;
+                rootNode.Evaluate(data);
+                if (timeSincePreviousPlayerDMG >= 6) timeSincePreviousPlayerDMG = 0;
+            }
+        }
+        else
+        {
+            //Debug.Log("BOSS CANT RUN");
         }
     }
 
@@ -161,6 +172,9 @@ public class BossAI : MonoBehaviour
     {
         timeSincePreviousPlayerDMG = 0;
     }
+
+    public void enableAI() { aiRunning = true; }
+    public void disableAI() { aiRunning = false; }
 
 
 

@@ -16,18 +16,39 @@ public class LightningProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        EnemyScript enemy = other.GetComponent<EnemyScript>();
-        
-        if (other.CompareTag("Enemy"))
+
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            if (enemy != null)
+            if (other.tag == "Enemy")
             {
-                Debug.Log($"Lightning projectile hit enemy: {other.gameObject.name}");
-                enemy.takeDamage(damage);
-                enemy.Stun(2f); // Stun enemy for 2 seconds
-                Debug.Log($"Enemy stunned for 2 seconds");
-            }
-            Destroy(gameObject);
+                EnemyScript enemy = other.GetComponent<EnemyScript>();
+
+                if (enemy != null)
+                {
+                    Debug.Log($"Lightning projectile hit enemy: {other.gameObject.name}");
+                    enemy.takeDamage(damage);
+                    enemy.Stun(2f); // Stun enemy for 2 seconds
+                    Debug.Log($"Enemy stunned for 2 seconds");
+                }
+                Destroy(gameObject);
+            
+            
+            } else
+            {
+                BossScript boss = other.GetComponent<BossScript>();
+
+                if (boss != null)
+                {
+                    Debug.Log($"Lightning projectile hit boss: {other.gameObject.name}");
+                    boss.takeDamage(damage);
+                    boss.Stun(2f); // Stun enemy for 2 seconds
+                    Debug.Log($"Boss stunned for 2 seconds");
+                }
+                Destroy(gameObject);
+
+            } 
+
         }
+
     }
 }

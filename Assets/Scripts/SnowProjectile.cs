@@ -17,17 +17,34 @@ public class SnowProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if ( other.CompareTag("Enemy") || other.CompareTag("Boss") )
         {
-            EnemyScript enemy = other.GetComponent<EnemyScript>();
-            if (enemy != null)
+            if (other.tag == "Enemy")
             {
-                Debug.Log($"Snow projectile hit enemy: {other.gameObject.name}");
-                enemy.takeDamage(damage);
-                enemy.Freeze(freezeDuration);
-                Debug.Log($"Enemy frozen for {freezeDuration} seconds");
+                EnemyScript enemy = other.GetComponent<EnemyScript>();
+                if (enemy != null)
+                {
+                    Debug.Log($"Snow projectile hit enemy: {other.gameObject.name}");
+                    enemy.takeDamage(damage);
+                    enemy.Freeze(freezeDuration);
+                    Debug.Log($"Enemy frozen for {freezeDuration} seconds");
+                }
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
+            else
+            {
+                BossScript boss = other.GetComponent<BossScript>();
+                if (boss != null)
+                {
+                    Debug.Log($"Snow projectile hit boss: {other.gameObject.name}");
+                    boss.takeDamage(damage);
+                    boss.Freeze(freezeDuration);
+                    Debug.Log($"Boss frozen for {freezeDuration} seconds");
+                }
+                Destroy(gameObject);
+            }
+
+
         }
     }
 

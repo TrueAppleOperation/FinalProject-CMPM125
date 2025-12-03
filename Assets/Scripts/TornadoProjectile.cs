@@ -17,28 +17,57 @@ public class TornadoProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            // Handle collision logic here
-            EnemyScript enemy = other.GetComponent<EnemyScript>();
-
-            if (enemy != null)
+            if (other.tag == "Enemy")
             {
-                Debug.Log($"Tornado projectile hit enemy: {other.gameObject.name}");
-                //Enemy takes damage logic
-                enemy.takeDamage(damage);
-                
-                Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
-                if (enemyRb != null)
+                // Handle collision logic here
+                EnemyScript enemy = other.GetComponent<EnemyScript>();
+
+                if (enemy != null)
                 {
-                    enemy.Stun(2f); // Stun for 2 seconds
-                    enemy.KnockUp(10f, 2f);
-                    enemy.movingForward = false;
-                    Debug.Log($"Enemy stunned and knocked up");
+                    Debug.Log($"Tornado projectile hit enemy: {other.gameObject.name}");
+                    //Enemy takes damage logic
+                    enemy.takeDamage(damage);
+
+                    Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+                    if (enemyRb != null)
+                    {
+                        enemy.Stun(2f); // Stun for 2 seconds
+                        enemy.KnockUp(10f, 2f);
+                        enemy.movingForward = false;
+                        Debug.Log($"Enemy stunned and knocked up");
+                    }
+
                 }
+                Destroy(gameObject);
+            } else
+            {
+                // Handle collision logic here
+                BossScript boss = other.GetComponent<BossScript>();
+
+                if (boss != null)
+                {
+                    Debug.Log($"Tornado projectile hit boss: {other.gameObject.name}");
+                    //Enemy takes damage logic
+                    boss.takeDamage(damage);
+
+                    Rigidbody2D enemyRb = boss.GetComponent<Rigidbody2D>();
+                    if (enemyRb != null)
+                    {
+                        boss.Stun(2f); // Stun for 2 seconds
+                        boss.KnockUp(10f, 2f);
+                        Debug.Log($"Boss stunned and knocked up");
+                    }
+
+                }
+                Destroy(gameObject);
+
+
 
             }
-            Destroy(gameObject);
+
+
         }
     } 
 }
