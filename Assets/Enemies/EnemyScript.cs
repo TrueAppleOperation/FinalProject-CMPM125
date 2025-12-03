@@ -366,6 +366,7 @@ public class EnemyScript : MonoBehaviour
             OnHealthChanged?.Invoke(HP);
             Debug.Log("Enemy died! Destroying...");
             Destroy(gameObject);
+            NextScene();
         }
         else
         {
@@ -373,6 +374,12 @@ public class EnemyScript : MonoBehaviour
             OnHealthChanged?.Invoke(HP);
             Debug.Log($"New HP: {HP}");
         }
+    }
+
+    private void NextScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex+1);
     }
 
     // Not set in stone
