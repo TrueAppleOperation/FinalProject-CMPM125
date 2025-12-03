@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class SunProjectile : MonoBehaviour
 {
-    public float offsetDistance = 1.5f;   
+    public float offsetDistance = 1.5f;
 
     private PlayerController player;
-    private Vector2 lastDir = Vector2.up; 
+    private Vector2 lastDir = Vector2.up;
+
     public void Setup(Vector2 dir, float speed)
     {
-       
         player = FindObjectOfType<PlayerController>();
         if (player == null)
         {
@@ -17,7 +17,6 @@ public class SunProjectile : MonoBehaviour
             return;
         }
 
-        
         if (dir.sqrMagnitude > 0.01f)
             lastDir = dir.normalized;
     }
@@ -26,7 +25,13 @@ public class SunProjectile : MonoBehaviour
     {
         if (player == null) return;
 
-        
+        // Destroy when mouse is released
+        if (!Input.GetMouseButton(0))
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Vector2 dir = player.LastMoveDir;
 
         if (dir.sqrMagnitude < 0.01f)
@@ -34,13 +39,13 @@ public class SunProjectile : MonoBehaviour
         else
             lastDir = dir.normalized;
 
-        
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
-            dir = new Vector2(Mathf.Sign(dir.x), 0f);   
+            dir = new Vector2(Mathf.Sign(dir.x), 0f);
         else
-            dir = new Vector2(0f, Mathf.Sign(dir.y));  
+            dir = new Vector2(0f, Mathf.Sign(dir.y));
 
         Vector3 offset = (Vector3)dir * offsetDistance;
         transform.position = player.transform.position + offset;
     }
 }
+        transform.position = player.transform.position + offset;
