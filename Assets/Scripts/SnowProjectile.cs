@@ -22,8 +22,10 @@ public class SnowProjectile : MonoBehaviour
             EnemyScript enemy = other.GetComponent<EnemyScript>();
             if (enemy != null)
             {
+                Debug.Log($"Snow projectile hit enemy: {other.gameObject.name}");
                 enemy.takeDamage(damage);
-                enemy.Freeze(freezeDuration); 
+                enemy.Freeze(freezeDuration);
+                Debug.Log($"Enemy frozen for {freezeDuration} seconds");
             }
             Destroy(gameObject);
         }

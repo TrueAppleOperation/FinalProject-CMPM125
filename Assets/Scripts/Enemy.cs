@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     public int health = 100;
     private Rigidbody2D rb;
     private float originalY;
+    bool isFrozen = false;
 
     private void Awake()
     {

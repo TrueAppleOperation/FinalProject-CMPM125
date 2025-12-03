@@ -24,15 +24,17 @@ public class TornadoProjectile : MonoBehaviour
 
             if (enemy != null)
             {
+                Debug.Log($"Tornado projectile hit enemy: {other.gameObject.name}");
                 //Enemy takes damage logic
-                //Need to add TakeDamage method in Enemy class
                 enemy.takeDamage(damage);
                 
                 Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
                 if (enemyRb != null)
                 {
+                    enemy.Stun(2f); // Stun for 2 seconds
                     enemy.KnockUp(10f, 2f);
-                    
+                    enemy.movingForward = false;
+                    Debug.Log($"Enemy stunned and knocked up");
                 }
 
             }

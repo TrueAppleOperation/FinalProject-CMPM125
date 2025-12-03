@@ -22,9 +22,10 @@ public class LightningProjectile : MonoBehaviour
         {
             if (enemy != null)
             {
-                //Need to add TakeDamage method in Enemy class
+                Debug.Log($"Lightning projectile hit enemy: {other.gameObject.name}");
                 enemy.takeDamage(damage);
                 enemy.Stun(2f); // Stun enemy for 2 seconds
+                Debug.Log($"Enemy stunned for 2 seconds");
             }
             Destroy(gameObject);
         }

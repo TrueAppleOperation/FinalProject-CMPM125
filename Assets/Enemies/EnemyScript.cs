@@ -28,7 +28,7 @@ public class EnemyScript : MonoBehaviour
     private Vector2 startPosition;
     private Vector2[] patrolPoints;
     private int currentPatrolIndex = 0;
-    private bool movingForward = true;
+    public bool movingForward = true;
     private bool isChasing = false;
     private Vector2 returnPosition;
 
@@ -171,6 +171,8 @@ public class EnemyScript : MonoBehaviour
     void ChasePlayer()
     {
         if (player == null) return;
+        if (isFrozen) return;
+        if (isStunned) return;
 
         Vector2 toPlayer = player.position - transform.position;
         float distance = toPlayer.magnitude;
@@ -237,6 +239,8 @@ public class EnemyScript : MonoBehaviour
     void PatrolBetweenPoints(float speedMultiplier)
     {
         if (patrolPoints == null || patrolPoints.Length == 0) return;
+        if (isFrozen) return;
+        if (isStunned) return;
 
         Vector2 currentTarget = patrolPoints[currentPatrolIndex];
         Vector2 toTarget = currentTarget - rb.position;
@@ -406,6 +410,7 @@ public class EnemyScript : MonoBehaviour
             rb.gravityScale = 1;
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             StartCoroutine(BringBackDown(rb, duration));
+
         }
     }
 
