@@ -20,11 +20,10 @@ public class SnowProjectile : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyScript enemy = other.GetComponent<EnemyScript>();
-            EnemyFreeze enemyFreezeScript = other.GetComponent<EnemyFreeze>();
             if (enemy != null)
             {
                 enemy.takeDamage(damage);
-                enemyFreezeScript.Freeze(freezeDuration); 
+                enemy.Freeze(freezeDuration); 
             }
             Destroy(gameObject);
         }

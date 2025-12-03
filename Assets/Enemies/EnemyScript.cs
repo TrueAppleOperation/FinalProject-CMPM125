@@ -12,6 +12,8 @@ public class EnemyScript : MonoBehaviour
     float maxHP;
     private Rigidbody2D rb;
     private float originalY;
+    private bool isFrozen = false;
+    private bool isStunned = false;
 
     [SerializeReference] public Sprite windSprite;
     [SerializeReference] public Sprite fireSprite;
@@ -405,6 +407,36 @@ public class EnemyScript : MonoBehaviour
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             StartCoroutine(BringBackDown(rb, duration));
         }
+    }
+
+    public void Freeze(float duration)
+    {
+        if (!isFrozen)
+        {
+            StartCoroutine(FreezeCoroutine(duration));
+        }
+    }
+
+    private IEnumerator FreezeCoroutine(float duration)
+    {
+        isFrozen = true;
+        yield return new WaitForSeconds(duration);
+        isFrozen = false;
+    }
+
+    public void Stun(float duration)
+    {
+        if (!isStunned)
+        {
+            StartCoroutine(StunCoroutine(duration));
+        }
+    }
+
+    private IEnumerator StunCoroutine(float duration)
+    {
+        isStunned = true;
+        yield return new WaitForSeconds(duration);
+        isStunned = false;
     }
 
     //custom init functions since unity doesnt have built in functions for this

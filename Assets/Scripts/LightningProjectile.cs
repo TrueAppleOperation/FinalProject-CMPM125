@@ -16,15 +16,15 @@ public class LightningProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        EnemyScript enemy = other.GetComponent<EnemyScript>();
+        
         if (other.CompareTag("Enemy"))
         {
-            EnemyScript enemy = other.GetComponent<EnemyScript>();
-            LighteningEffectEnemy enemyThunderScript = other.GetComponent<LighteningEffectEnemy>();
             if (enemy != null)
             {
                 //Need to add TakeDamage method in Enemy class
                 enemy.takeDamage(damage);
-                enemyThunderScript.Stun(2f); // Stun enemy for 2 seconds
+                enemy.Stun(2f); // Stun enemy for 2 seconds
             }
             Destroy(gameObject);
         }
