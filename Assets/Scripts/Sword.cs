@@ -1,19 +1,19 @@
 using UnityEngine;
 
 public enum SwordType
-    {
-        None,
-        Wind,
-        Rain,
-        Sun,
-        Snow,
-        
-    }
+{
+    None,
+    Wind,
+    Rain,
+    Sun,
+    Snow,
+}
 
 public class Sword : MonoBehaviour
 {
     public SwordType currentType = SwordType.None;
-    // Prefab references for each sword effect
+    private SunProjectile activeSun; 
+
     [SerializeField] GameObject windTornadoPrefab;
     [SerializeField] GameObject lightningPrefab;
     [SerializeField] GameObject sunRayPrefab;
@@ -21,34 +21,33 @@ public class Sword : MonoBehaviour
 
     public void SetSwordType(Vector2 direction)
     {
-        switch(currentType)
+        switch (currentType)
         {
             case SwordType.Wind:
-                // Handle Wind type
                 ShootTornado(direction);
                 break;
+
             case SwordType.Rain:
-                // Handle Rain type
                 ThunderStrike(direction);
                 break;
-            
+
             case SwordType.Sun:
-                // Handle Sun type
                 SunRay(direction);
                 break;
+
             case SwordType.Snow:
-                // Handle Snow type
                 SnowFreeze(direction);
                 break;
-            
         }
     }
-     public void DebugSpawnSun(Vector2 direction)
+
+    // debug helper so pressing P always spawns a sun ray
+    public void DebugSpawnSun(Vector2 direction)
     {
         Debug.Log("DebugSpawnSun called");
         SunRay(direction);
     }
-    
+
     void ShootTornado(Vector2 direction)
     {
         GameObject tornado = Instantiate(windTornadoPrefab, transform.position, Quaternion.identity);
@@ -58,19 +57,19 @@ public class Sword : MonoBehaviour
     void ThunderStrike(Vector2 direction)
     {
         Debug.Log("Lighting Prefab: " + lightningPrefab);
-        GameObject lighting = Instantiate(lightningPrefab, transform.position, Quaternion.identity);
-        lighting.GetComponent<LightningProjectile>().Setup(direction, 6f);
+        GameObject lightning = Instantiate(lightningPrefab, transform.position, Quaternion.identity);
+        lightning.GetComponent<LightningProjectile>().Setup(direction, 6f);
     }
 
-    
-    /*void SunRay(Vector2 direction)
-    {
-        GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
-        sunRay.GetComponent<SunProjectile>().Setup(direction, 5f);
-    }*/
-    void SunRay(Vector2 direction)
+   void SunRay(Vector2 direction)
 {
     Debug.Log("SunRay() called, dir = " + direction);
+
+    if (activeSun != null)
+    {
+        Debug.Log("SunRay: sunPower already active, skipping spawn.");
+        return;
+    }
 
     GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
     if (sunRay == null)
@@ -87,6 +86,7 @@ public class Sword : MonoBehaviour
     }
 
     sp.Setup(direction, 5f);
+    activeSun = sp;
 }
 
 
