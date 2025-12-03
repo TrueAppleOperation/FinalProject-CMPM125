@@ -12,6 +12,7 @@ public enum SwordType
 public class Sword : MonoBehaviour
 {
     public SwordType currentType = SwordType.None;
+    private SunProjectile activeSun; 
 
     [SerializeField] GameObject windTornadoPrefab;
     [SerializeField] GameObject lightningPrefab;
@@ -60,24 +61,34 @@ public class Sword : MonoBehaviour
         lightning.GetComponent<LightningProjectile>().Setup(direction, 6f);
     }
 
-    void SunRay(Vector2 direction)
+   void SunRay(Vector2 direction)
 {
     Debug.Log("SunRay() called, dir = " + direction);
 
-  
-    Vector3 spawnPos = transform.position + (Vector3)direction * 2f;
+    if (activeSun != null)
+    {
+        Debug.Log("SunRay: sunPower already active, skipping spawn.");
+        return;
+    }
 
-    GameObject sunRay = Instantiate(sunRayPrefab, spawnPos, Quaternion.identity);
+    GameObject sunRay = Instantiate(sunRayPrefab, transform.position, Quaternion.identity);
+    if (sunRay == null)
+    {
+        Debug.LogError("SunRay: sunRayPrefab is NULL!");
+        return;
+    }
 
     SunProjectile sp = sunRay.GetComponent<SunProjectile>();
     if (sp == null)
     {
-        Debug.LogError("SunProjectile missing on prefab!");
+        Debug.LogError("SunRay: SunProjectile component missing on prefab");
         return;
     }
 
     sp.Setup(direction, 5f);
+    activeSun = sp;
 }
+
 
 
     void SnowFreeze(Vector2 direction)
