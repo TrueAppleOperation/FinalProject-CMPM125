@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SnowProjectile : MonoBehaviour
 {
+
     public int freezeDuration = 5;
     public float speed = 10f;
     public int damage = 3;
@@ -12,6 +13,7 @@ public class SnowProjectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(direction * force, ForceMode2D.Impulse);
+
         Destroy(gameObject, 3f);
     }
 

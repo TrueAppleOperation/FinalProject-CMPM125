@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
     Vector2 input;
 
     public Vector2 LastMoveDir { get; private set; } = Vector2.up;
-
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
             if (Input.GetMouseButtonDown(0))
             {
+
                 if (sword.currentType != SwordType.Sun)
                     sword.SetSwordType(direction);
                 Debug.Log("Clicked");

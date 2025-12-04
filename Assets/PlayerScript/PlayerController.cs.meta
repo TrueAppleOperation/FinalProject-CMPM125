@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 954da312da9ec2c4190ffa3a62c66b41
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - moveAction: {instanceID: 0}
+  - shooting: {fileID: 8300000, guid: 6d81caae4681a4530a387def1f402688, type: 3}
+  - sfxMixerGroup: {fileID: 8288939224209221413, guid: 772fb8ac807d44179bc093bc7c039817, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

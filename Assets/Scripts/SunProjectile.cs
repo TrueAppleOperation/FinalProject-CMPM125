@@ -6,6 +6,9 @@ public class SunProjectile : MonoBehaviour
 
     private PlayerController player;
     private Vector2 lastDir = Vector2.up; 
+
+
+
     public void Setup(Vector2 dir, float speed)
     {
 
@@ -20,6 +23,8 @@ public class SunProjectile : MonoBehaviour
 
         if (dir.sqrMagnitude > 0.01f)
             lastDir = dir.normalized;
+
+        
     }
 
     void Update()
