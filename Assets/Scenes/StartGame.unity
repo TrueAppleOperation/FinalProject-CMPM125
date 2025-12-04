@@ -343,8 +343,8 @@ MonoBehaviour:
 
     Defeat the enemies to win!'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
+  m_sharedMaterial: {fileID: 145352859630185244, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1539,8 +1539,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: How to Play!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
+  m_sharedMaterial: {fileID: 145352859630185244, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2676,8 +2676,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -150987079
-  m_SortingLayer: 2
+  m_SortingLayerID: 1543202435
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2843,8 +2843,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: " 1 - Wind\n 2 - Sun\n 3 - Snow\n 4 - Lighting\n 0 - None"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
+  m_sharedMaterial: {fileID: 145352859630185244, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5825,8 +5825,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press [ E ] to continue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
+  m_sharedMaterial: {fileID: 145352859630185244, guid: cf5f65c9159cd3343acf6ab8e8be95c0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
