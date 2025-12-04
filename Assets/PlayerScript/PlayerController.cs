@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public InputActionReference moveAction;
 
+    public AudioSource shootSFX;
+
     Rigidbody2D rb;
     Vector2 input;
 
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+            shootSFX.Play();
             if (Input.GetMouseButtonDown(0))
             {
 
