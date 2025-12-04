@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BossScript : MonoBehaviour
 {
@@ -101,6 +102,7 @@ public class BossScript : MonoBehaviour
         if (DMG >= HP)
         {
             Destroy(gameObject);
+            NextScene();
             return false;
         }
         else
@@ -109,6 +111,11 @@ public class BossScript : MonoBehaviour
             OnHealthChanged?.Invoke(HP);
             return true;
         }
+    }
+    private void NextScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex + 1);
     }
 
     public float GetCurrentHP()
