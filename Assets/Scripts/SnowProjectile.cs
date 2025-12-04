@@ -8,6 +8,7 @@ public class SnowProjectile : MonoBehaviour
     public int damage = 3;
 
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
     public void Setup(Vector2 direction, float force)
     {

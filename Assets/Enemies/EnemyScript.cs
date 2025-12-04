@@ -15,13 +15,10 @@ public class EnemyScript : MonoBehaviour
     private bool isFrozen = false;
     private bool isStunned = false;
 
-    [SerializeReference] public Sprite windSprite;
-    [SerializeReference] public Sprite fireSprite;
-    [SerializeReference] public Sprite lightningSprite;
-    [SerializeReference] public Sprite waterSprite;
-
-    //Sprite selfSprite = GetComponent<SpriteRenderer>();  <---- UNCOMMENT ONCE SPRITES ARE IMPLIMENTED
     enemyTypes TYPE;
+
+
+    [SerializeField] private Animator spriteAnimator;
 
     // Behavior-specific variables
     private Transform player;
@@ -43,7 +40,6 @@ public class EnemyScript : MonoBehaviour
     public float attackCooldown = 2f;
     public float attackRange = 5f;
 
-    private SpriteRenderer spriteRenderer;
 
     // Health bar events
     public System.Action<float> OnHealthChanged;
@@ -52,7 +48,6 @@ public class EnemyScript : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         originalY = transform.position.y;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -104,7 +99,6 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        preventHPOverflow();
 
         // Check for player detection
         if (player != null)
@@ -114,13 +108,16 @@ public class EnemyScript : MonoBehaviour
             if (!isChasing && distanceToPlayer <= detectionRange)
             {
                 // Start chasing
+                Debug.Log("chasing");
                 isChasing = true;
+                spriteAnimator.SetBool("isChasingPlayer", isChasing);
                 returnPosition = transform.position;
             }
             else if (isChasing && distanceToPlayer > chaseRange)
             {
                 // Stop chasing and return to patrol
                 isChasing = false;
+                spriteAnimator.SetBool("isChasingPlayer", isChasing);
                 currentPatrolIndex = FindNearestPatrolPoint();
             }
         }
@@ -365,6 +362,7 @@ public class EnemyScript : MonoBehaviour
             HP = 0;
             OnHealthChanged?.Invoke(HP);
             Debug.Log("Enemy died! Destroying...");
+            spriteAnimator.SetBool("isDead", true);
             Destroy(gameObject);
             NextScene();
         }
@@ -382,14 +380,7 @@ public class EnemyScript : MonoBehaviour
         SceneManager.LoadScene(currentScene.buildIndex+1);
     }
 
-    // Not set in stone
-    void preventHPOverflow()
-    {
-        if (HP > maxHP)
-        {
-            HP = maxHP / 2;
-        }
-    }
+
 
     public IEnumerator BringBackDown(Rigidbody2D rb, float delay)
     {

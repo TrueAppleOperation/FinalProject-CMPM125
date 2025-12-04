@@ -33,6 +33,8 @@ public class BossAI : MonoBehaviour
     [SerializeReference] public GameObject lightningStrike;
     [SerializeReference] public GameObject lightningStrikeWarning;
 
+    [SerializeField] private Animator spriteAnimator;
+
     void Start()
     {
         timeSincePreviousPlayerDMG = 0;
@@ -74,6 +76,7 @@ public class BossAI : MonoBehaviour
                 notMidAttack = false;
                 rootNode.Evaluate(data);
                 if (timeSincePreviousPlayerDMG >= 6) timeSincePreviousPlayerDMG = 0;
+                spriteAnimator.SetBool("isAttackingPlayer", true);
             }
         }
         else
@@ -162,6 +165,7 @@ public class BossAI : MonoBehaviour
         timeSinceLastAction = 0;
         notMidAttack = true;
         MOVESPEED = NORMSPEED;
+        spriteAnimator.SetBool("isAttackingPlayer", false);
     }
     public void callBossStateReset()
     {

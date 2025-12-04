@@ -11,7 +11,7 @@ public class BossScript : MonoBehaviour
     private bool isStunned = false;
     private BossAI bossAI;
 
-    [SerializeReference] public Sprite bossTexture;
+    [SerializeField] private Animator spriteAnimator;
 
     void Start()
     {

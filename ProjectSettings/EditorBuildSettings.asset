@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level3.unity
     guid: ec845bae13bcb54479ff2ea68ba50a52
   - enabled: 1
+    path: Assets/Scenes/Bossbattle.unity
+    guid: a6a18ddcf97f32d4faaac4c71b3044cd
+  - enabled: 0
     path: Assets/Scenes/EnemyScene.unity
     guid: 3080bf34aedfb20409e4ad0050bcdaa0
   m_configObjects:
