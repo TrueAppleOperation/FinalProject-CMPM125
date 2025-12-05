@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
@@ -23,12 +21,13 @@ public class PlayerController : MonoBehaviour
     public InputActionReference moveAction;
 
     public AudioSource shootSFX;
+    public AudioClip shootSoundClip;
 
     Rigidbody2D rb;
     Vector2 input;
 
     public Vector2 LastMoveDir { get; private set; } = Vector2.up;
-    
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -55,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         input = moveAction != null ? moveAction.action.ReadValue<Vector2>() : ReadKeyboard();
 
         if (input.sqrMagnitude > 0.01f)
@@ -65,10 +63,11 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
-            shootSFX.Play();
+
+            PlayShootSound();
+
             if (Input.GetMouseButtonDown(0))
             {
-
                 if (sword.currentType != SwordType.Sun)
                     sword.SetSwordType(direction);
                 Debug.Log("Clicked");
@@ -79,6 +78,20 @@ public class PlayerController : MonoBehaviour
                     sword.SetSwordType(direction);
                 Debug.Log("Holding Click");
             }
+        }
+    }
+
+    private void PlayShootSound()
+    {
+        if (SoundFXManager.instance != null && shootSoundClip != null)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(shootSoundClip, transform);
+        }
+        else if (shootSFX != null && shootSFX.clip != null)
+        {
+            float savedVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+            shootSFX.volume = savedVolume;
+            shootSFX.Play();
         }
     }
 
