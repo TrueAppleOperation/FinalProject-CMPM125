@@ -176,10 +176,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How to Play!
+  m_text: how to play!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
+  m_sharedMaterial: {fileID: 3497280217737871908, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -470,17 +470,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [ E ] to continue
+  m_text: press [ E ] to continue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
+  m_sharedMaterial: {fileID: 3497280217737871908, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4286766574
+  m_fontColor: {r: 0.9333334, g: 0.8666667, b: 0.509804, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -78.723694, y: 0, z: -20.13861, w: 0}
+  m_margin: {x: -78.723694, y: -44.37613, z: -35.181274, w: 42.11972}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -9940,8 +9940,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 398, y: 26}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 382.95728, y: 26}
+  m_SizeDelta: {x: 230.0855, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &998806440
 MonoBehaviour:
@@ -9963,10 +9963,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " 1 - Wind\n 2 - Sun\n 3 - Snow\n 4 - Lighting\n 0 - None"
+  m_text: " 1 - wind\n 2 - sun\n 3 - snow\n 4 - lighting\n 0 - none"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
+  m_sharedMaterial: {fileID: 3497280217737871908, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11222,6 +11222,7 @@ MonoBehaviour:
   moveSpeed: 5
   moveAction: {fileID: 7372035212942007877, guid: 88d924b4c500b8f45a101aae3b0ef7b8, type: 3}
   shootSFX: {fileID: 0}
+  shootSoundClip: {fileID: 0}
 --- !u!50 &1508617340
 Rigidbody2D:
   serializedVersion: 5
@@ -11379,17 +11380,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use WASD to move around
+  m_text: 'use WASD to move around
 
 
-    Use 1, 2, 3, 4 to switch between different
+    use 1, 2, 3, 4 to switch between different
     sword powers and click to use
 
 
-    Defeat the enemies to win!'
+    defeat the enemies as you ascend the mountain
+    to win!'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
+  m_sharedMaterial: {fileID: 3497280217737871908, guid: 2a78bb5df2d7a424e86de2cc3a76817e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11451,7 +11453,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -38.141785, y: 0, z: -35.316406, w: -105.94919}
+  m_margin: {x: 5.4822083, y: 0, z: -85.709656, w: -105.94919}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
