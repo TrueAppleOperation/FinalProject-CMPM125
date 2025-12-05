@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BossScript : MonoBehaviour
 {
-    const float maxHP = 1000;
+    const float maxHP = 500;
     float HP = maxHP;
     private Rigidbody2D rb;
     private float originalY;
