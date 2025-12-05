@@ -1,23 +1,31 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BossScript : MonoBehaviour
 {
-    const float maxHP = 400;
+    const float maxHP = 1000;
     float HP = maxHP;
     private Rigidbody2D rb;
     private float originalY;
     private bool isFrozen = false;
     private bool isStunned = false;
     private BossAI bossAI;
+    public event Action<float> OnHealthChanged;
+    public event Action<float> OnMaxHealthChanged;
 
-    [SerializeField] private Animator spriteAnimator;
+    [SerializeReference] public Sprite bossTexture;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         originalY = transform.position.y;
         bossAI = GetComponent<BossAI>();
+
+        // Initialize health events
+        OnMaxHealthChanged?.Invoke(maxHP);
+        OnHealthChanged?.Invoke(HP);
     }
 
     public IEnumerator BringBackDown(Rigidbody2D rb, float delay)
@@ -94,12 +102,35 @@ public class BossScript : MonoBehaviour
         if (DMG >= HP)
         {
             Destroy(gameObject);
+            NextScene();
             return false;
         }
         else
         {
             HP -= DMG;
+            OnHealthChanged?.Invoke(HP);
             return true;
         }
+    }
+    private void NextScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex + 1);
+    }
+
+    public float GetCurrentHP()
+    {
+        return HP;
+    }
+
+    public float GetMaxHP()
+    {
+        return maxHP;
+    }
+
+    public void ModifyHealth(float amount)
+    {
+        HP = Mathf.Clamp(HP + amount, 0, maxHP);
+        OnHealthChanged?.Invoke(HP);
     }
 }

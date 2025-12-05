@@ -18,6 +18,9 @@ public class MainMenu : MonoBehaviour
 
     [Header("Scene Names")]
     public string nextSceneName = "StartGame";
+    public string defaultSaveScene = "StartGame";
+
+    private string savedSceneName;
 
     private void Start()
     {
@@ -26,16 +29,32 @@ public class MainMenu : MonoBehaviour
         optionsButton.onClick.AddListener(OnOptionsClicked);
         creditsButton.onClick.AddListener(OnCreditsClicked);
 
-        // Disable continue button since we have no save system yet
-        continueButton.interactable = false;
-
-        // Show main menu, hide other pages
+        InitializeContinueButton();
         ShowMainMenu();
+    }
+
+    private void InitializeContinueButton()
+    {
+        // Check if a save exists and enable/disable the continue button accordingly
+        bool saveExists = SaveSystem.SaveExists();
+        continueButton.interactable = saveExists;
+
+        if (saveExists)
+        {
+            SaveData data = SaveSystem.LoadGame();
+            if (data != null)
+            {
+                savedSceneName = data.savedSceneName;
+            }
+        }
+        else
+        {
+            savedSceneName = defaultSaveScene;
+        }
     }
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
             QuitGame();
@@ -53,14 +72,29 @@ public class MainMenu : MonoBehaviour
 
     private void OnContinueClicked()
     {
-        // TODO:
-        // SceneManager.LoadScene(savedSceneName);
-        // LoadGameData();
+        if (SaveSystem.SaveExists())
+        {
+            SaveData data = SaveSystem.LoadGame();
+            if (data != null && !string.IsNullOrEmpty(data.savedSceneName))
+            {
+                Debug.Log($"Loading saved game from scene: {data.savedSceneName}");
+                SceneManager.LoadScene(data.savedSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("Save data corrupted, starting new game");
+                SceneManager.LoadScene(defaultSaveScene);
+            }
+        }
+        else
+        {
+            Debug.Log("No save found, starting new game");
+            SceneManager.LoadScene(defaultSaveScene);
+        }
     }
 
     private void OnNewGameClicked()
     {
-        // This will erase previous game data and start fresh
         StartNewGame();
     }
 
@@ -97,15 +131,7 @@ public class MainMenu : MonoBehaviour
 
     private void StartNewGame()
     {
-        // TODO:
-        // 1. Delete any existing save data
-        // 2. Reset game state
-        // 3. Load the opening scene
-
-        // For now, just load the opening scene
-
-        Debug.Log("Starting new game -> opening scene");
-
+        SaveSystem.DeleteSave();
         SceneManager.LoadScene(nextSceneName);
     }
 
